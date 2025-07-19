@@ -1,0 +1,472 @@
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>أساتذة المنصة</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .notification-item.unread {
+      background-color: #f8f9fa;
+    }
+    /* Mobile menu animation */
+    .mobile-menu {
+      transition: all 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+    }
+    .teacher-section {
+      margin-bottom: 3rem;
+    }
+    .social-icon {
+      transition: all 0.3s ease;
+      margin-left: 0.5rem;
+      margin-right: 0.5rem;
+    }
+    .social-icon:hover {
+      transform: translateY(-2px);
+      opacity: 0.8;
+    }
+    .follow-button {
+      transition: all 0.3s ease;
+    }
+    .follow-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .teacher-card {
+      transition: all 0.3s ease;
+    }
+    .teacher-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    }
+    .hidden-section {
+      display: none;
+    }
+    .dropdown-content {
+      display: none;
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-[#0B0D23]">
+  <header class="sticky top-0 z-40 bg-white shadow-sm">
+    <div class="flex justify-between items-center px-4 sm:px-8 py-4 max-w-[1280px] mx-auto">
+      <div class="flex items-center space-x-4 space-x-reverse">
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <a class="flex items-center" href="index.html">
+          <img alt="شعار المنصة" class="w-14 h-14" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-6/520308821_122097273398945809_1111380084754382768_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGK2QqnrRdovE-iEpEzqKRDO4R2DQlrRqg7hHYNCWtGqHNOE3LjRb8UFKbVjawU_sTl8fhiGcgshikfaxoKlQCP&_nc_ohc=fFK40rPLWZMQ7kNvwHNdZGf&_nc_oc=AdmjRgEpj3GByUIO0RkDS8f0p4JQ6-ugWwIQKrGiClqf7USNyjqd3kHATWErIQIWp7A&_nc_zt=23&_nc_ht=scontent.faae2-2.fna&_nc_gid=I9TeYgJlyJF2lshbcAykVQ&oh=00_AfQsuMGJ02rhwnS2ekuaaVza_HnpSLN7v_kGqcvR7aRh7w&oe=687BEAD4"/>
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex text-sm font-normal text-[#0B0D23]">
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="about.html">لمحة عن المنصة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="index.html">الرئيسية</a>
+        <a class="text-[#E6D88B] font-semibold mx-4" href="lessons.html">الدروس المسجلة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="live-lessons.html">الدروس المباشرة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="admin.html">المسؤولون</a>
+      </nav>
+      
+      <div class="flex items-center space-x-6 space-x-reverse text-sm text-[#0B0D23]">
+        <!-- Notification Bell -->
+        <div class="relative cursor-pointer" id="notificationBell">
+          <i class="fas fa-bell text-lg"></i>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs hidden" id="notificationBadge"></span>
+        </div>
+        <!-- User Icon -->
+        <div class="flex items-center space-x-2 space-x-reverse">
+          <i class="fas fa-user-circle text-lg"></i>
+          <a class="hover:text-[#E6D88B] transition-colors" href="profile.html">حسابي</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-gray-200">
+      <div class="px-4 py-3 space-y-3">
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="about.html">لمحة عن المنصة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="index.html">الرئيسية</a>
+        <a class="block text-[#E6D88B] font-semibold py-2" href="lessons.html">الدروس المسجلة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="live-lessons.html">الدروس المباشرة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="admin.html">المسؤولون</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Dropdown -->
+  <div id="notificationDropdown" class="hidden fixed right-4 sm:right-8 top-20 max-w-[320px] w-full bg-white shadow-lg rounded-lg z-50 border border-gray-200">
+    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+      <h3 class="font-semibold">إشعارات المتابعة</h3>
+      <button id="markAllRead" class="text-xs text-blue-500">تعيين الكل كمقروء</button>
+    </div>
+    <div id="notificationList" class="max-h-[400px] overflow-y-auto">
+      <div class="p-4 border-b border-gray-100 text-sm notification-item">
+        سيتم عرض إشعارات المتابعة هنا عند إضافة الأساتذة محتوى جديد
+      </div>
+    </div>
+    <div class="p-2 text-center text-xs text-gray-500">
+      <a href="notifications.html" class="hover:text-[#E6D88B]">عرض جميع الإشعارات</a>
+    </div>
+  </div>
+
+  <main class="max-w-[1280px] mx-auto px-4 sm:px-8 py-8">
+    <section class="mb-10">
+      <h1 class="text-2xl font-semibold mb-2 text-center">الدروس المسجلة</h1>
+      <p class="text-sm text-gray-600 text-center">تصفح جميع الدروس المسجلة حسب الأستاذ والمادة</p>
+    </section>
+
+    <!-- Filter Section -->
+    <section class="mb-8 bg-white p-4 rounded-lg shadow-sm">
+      <div class="flex flex-col md:flex-row justify-between items-center">
+        <div class="mb-4 md:mb-0">
+          <label class="block text-sm font-medium mb-1">تصفية حسب:</label>
+          <div class="flex space-x-2">
+            <select id="subjectFilter" class="border border-gray-300 rounded-md px-3 py-1 text-sm" onchange="filterBySubject()">
+              <option value="all">جميع المواد</option>
+              <option value="الرياضيات">الرياضيات</option>
+              <option value="العلوم الطبيعية">العلوم الطبيعية</option>
+              <option value="العلوم الفيزيائية">العلوم الفيزيائية</option>
+              <option value="اللغة العربية">اللغة العربية</option>
+              <option value="اللغة الفرنسية">اللغة الفرنسية</option>
+              <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
+            </select>
+          </div>
+        </div>
+        <div class="relative w-full md:w-64">
+          <input type="text" id="teacherSearch" placeholder="ابحث عن أستاذ..." class="w-full border border-gray-300 rounded-md px-3 py-1 pr-8 text-sm" oninput="searchTeachers()">
+          <i class="fas fa-search absolute right-2 top-2 text-gray-400"></i>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teachers Sections -->
+    <section class="mb-12 teacher-section" data-subject="الرياضيات">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة الرياضيات</h2>
+      
+      <!-- Teacher 1 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بن عالية عبد الرؤوف">
+        <button onclick="toggleDropdown('teacher1')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/452737270_798015465820340_5279173610112999995_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeHv5bjUdV9IYEXtfPCSkxJ31iIOAAFRqLTWIg4AAVGotLZbQPLBuDKpaj6tBRkCpGxqNixA62sDuGwxkAQhlUZq&_nc_ohc=A7pvvE4JERIQ7kNvwHeiLRz&_nc_oc=Adn3lYbYelnsnIBBp0QFLP5B_K-IIYrDiUkaqxoSMhUFHDALcfaso12KsDAvbs0HmXA&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=gGbY4g0P90PVxejoIyAJAQ&oh=00_AfTyWspk2A63gnfHCSVe0rPBQ33-nEWAJYauaYECD_6PuA&oe=687F2583" 
+                 alt="الأستاذ بن عالية عبد الرؤوف" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">الأستاذ بن عالية عبد الرؤوف</h3>
+              <p class="text-xs text-gray-500">أستاذ مادة الرياضيات</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher1-arrow"></i>
+        </button>
+        
+        <div id="teacher1" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">
+            <h4 class="font-medium mb-3 text-[#E6D88B]">الدروس المسجلة</h4>
+            
+            <div class="space-y-2">
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>درس الجبر - المعادلات من الدرجة الأولى</span>
+                  <span class="text-xs text-gray-500">12/07/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>درس الهندسة - نظرية فيثاغورس</span>
+                  <span class="text-xs text-gray-500">05/07/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>تمرين تطبيقي - حساب المساحات</span>
+                  <span class="text-xs text-gray-500">28/06/2025</span>
+                </div>
+              </a>
+            </div>
+            
+            <h4 class="font-medium mb-3 mt-4 text-[#E6D88B]">التمارين والاختبارات</h4>
+            
+            <div class="space-y-2">
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>اختبار الفصل الأول - النموذج 1</span>
+                  <span class="text-xs text-gray-500">20/06/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>سلسلة تمارين في الجبر</span>
+                  <span class="text-xs text-gray-500">15/06/2025</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Teacher 2 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="محمد صلاح">
+        <button onclick="toggleDropdown('teacher2')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/451660008_122094384086435551_6132777615664526384_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=103&ccb=1-7&_nc_sid=1d2534&_nc_eui2=AeGfV2n2LonwV46l6WSS39Kyr3ZakRDJUGivdlqREMlQaFOoXHeNbATm7KZ-QztyIr85kvTby5YXnnqLEYZw1Bkp&_nc_ohc=2zQiqrtLMJgQ7kNvwFMA9g2&_nc_oc=AdnZboJtYBbgba2F4vNB7-unQrb6yZ7LXUT5Zr2QEOKseWFytx5O7axUf5k_WQ5rmXQ&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=ZESpQYDq8_WfYv1AricFTA&oh=00_AfQPf-nAlx02Ns1v9lske-sMeq7Im6FD7WQ4QpyUOd2LVQ&oe=687B3D6B" 
+                 alt="الأستاذ محمد صلاح" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold"> الأستاذ محمد صلاح </h3>
+              <p class="text-xs text-gray-500">أستاذ مادة الرياضيات</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher2-arrow"></i>
+        </button>
+        
+        <div id="teacher2" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">
+            <h4 class="font-medium mb-3 text-[#E6D88B]">الدروس المسجلة</h4>
+            
+            <div class="space-y-2">
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>درس الإحصاء والاحتمالات</span>
+                  <span class="text-xs text-gray-500">10/07/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>حل المعادلات التربيعية</span>
+                  <span class="text-xs text-gray-500">03/07/2025</span>
+                </div>
+              </a>
+            </div>
+            
+            <h4 class="font-medium mb-3 mt-4 text-[#E6D88B]">التمارين والاختبارات</h4>
+            
+            <div class="space-y-2">
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>اختبار الفصل الأول - النموذج 2</span>
+                  <span class="text-xs text-gray-500">22/06/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>تمارين في الهندسة الفضائية</span>
+                  <span class="text-xs text-gray-500">18/06/2025</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- More Teachers Sections -->
+    <section class="mb-12 teacher-section" data-subject="العلوم الطبيعية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة العلوم الطبيعية</h2>
+      
+      <!-- Teacher 3 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بوقطوف سيف الدين">
+        <button onclick="toggleDropdown('teacher3')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-4.fna.fbcdn.net/v/t39.30808-1/516505520_590711274096274_1499957737273014160_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=100&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeGoVy-sSYYFKrJZB6J39WAZT1Xu5JaiuLdPVe7klqK4t7bFNQTQGxTyPn0pmhQ_tnaE4e1lLC59Sj8Jj8vkG29P&_nc_ohc=SrblimrMqj0Q7kNvwHJYpTw&_nc_oc=AdmcW4-0ptDEyAMH71LYu7RkXZvM_gVu25mA8R9pKt4UDGG17WjZQOJ_SzB088GkG1E&_nc_zt=24&_nc_ht=scontent.faae2-4.fna&_nc_gid=p0P7rnDsWnehqtFtnx8RcQ&oh=00_AfRdPNN-hQHDslJlria1DzH1IT5XbTEKt5z7wfDZ8xvAtQ&oe=687B12FA" 
+                 alt="الأستاذ بوقطوف سيف الدين" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">الأستاذ بوقطوف سيف الدين</h3>
+              <p class="text-xs text-gray-500">أستاذ مادة العلوم الطبيعية</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher3-arrow"></i>
+        </button>
+        
+        <div id="teacher3" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">
+            <h4 class="font-medium mb-3 text-[#E6D88B]">الدروس المسجلة</h4>
+            
+            <div class="space-y-2">
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>درس النصوص - تحليل النص الأدبي</span>
+                  <span class="text-xs text-gray-500">11/07/2025</span>
+                </div>
+              </a>
+              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
+                <div class="flex justify-between items-center">
+                  <span>قواعد اللغة - الجملة الفعلية</span>
+                  <span class="text-xs text-gray-500">04/07/2025</span>
+                </div>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!-- Additional Teachers Sections (hidden by default) -->
+    <section class="mb-12 teacher-section hidden-section" data-subject="العلوم الفيزيائية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة العلوم الفيزيائية</h2>
+    </section>
+    
+    <section class="mb-12 teacher-section hidden-section" data-subject="اللغة العربية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة العربية</h2>
+    </section>
+    
+    <section class="mb-12 teacher-section hidden-section" data-subject="اللغة الفرنسية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة الفرنسية</h2>
+    </section>
+    
+    <section class="mb-12 teacher-section hidden-section" data-subject="اللغة الإنجليزية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة الإنجليزية</h2>
+    </section>
+  </main>
+  
+  <footer class="bg-black text-white py-6">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-between items-center text-xs">
+      <div class="flex items-center space-x-4 space-x-reverse mb-4 sm:mb-0">
+        <img alt="شعار المنصة" class="w-10 h-10" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-6/518344447_1263687285413942_8845202209828823666_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHX_KLRVOw4Z5froX7-Wlp2phdHxde2JASmF0fF17YkBHq5UxjK56ZgEHLFifhCPC76_HGspn4SkJ5SlxeHvwFj&_nc_ohc=JL7IVgBh50UQ7kNvwHT79LZ&_nc_oc=Adlf6i09vgR7aB8lCFS4wA-xzJWwnQp6nI2G6KEvspl9b5aMaVCXcQDndCiJxaqmiKI&_nc_zt=23&_nc_ht=scontent.faae2-2.fna&_nc_gid=S3dDxxC5YOlZ6fsAn0_eww&oh=00_AfSX0EvjoXnh6lT2Z0YuLxQMBCOc10SwCbmxJf8mdTVn_Q&oe=687BFFD3"/>
+        <div> 
+          <p>منصة رواد الغد</p>
+          <p>جميع الحقوق محفوظة © 2025</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="font-semibold mb-1">تواصل معنا:</p>
+        <div class="flex justify-end space-x-3 space-x-reverse mt-2">
+          <a href="https://t.me/yourtelegram" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.03-.08.05-.17-.05-.25s-.34-.04-.49-.03c-.21.03-3.49 2.19-4.93 3.23-.53.38-1.02.57-1.46.56-.48-.01-1.4-.27-1.09-1.12.27-.73.8-1.87 1.26-2.74.83-1.58 1.67-3.33 2.47-5 .22-.47.44-.9.66-1.3.25-.45.55-.6.94-.6.12 0 .27.02.39.12.17.12.22.34.2.53-.04.25-.5 2.4-.53 2.63-.06.42.12.6.34.62.18.01.63-.13 1.6-1.24.23-.27.42-.4.75-.4.18 0 .38.04.55.13.42.23.5.74.67 1.88z"/>
+            </svg>
+          </a>
+          <a href="https://facebook.com/yourfacebook" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+            </svg>
+          </a>
+          <a href="mailto:smartacademyschool23@gmail.com" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+        }
+      });
+
+      // Notification system
+      const notificationBell = document.getElementById('notificationBell');
+      const notificationBadge = document.getElementById('notificationBadge');
+      const notificationDropdown = document.getElementById('notificationDropdown');
+      
+      notificationBell.addEventListener('click', function(e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('hidden');
+      });
+      
+      document.addEventListener('click', function() {
+        notificationDropdown.classList.add('hidden');
+      });
+    });
+
+    // Toggle dropdown function
+    function toggleDropdown(teacherId) {
+      const dropdown = document.getElementById(teacherId);
+      const arrow = document.getElementById(teacherId + '-arrow');
+      
+      if (dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        arrow.classList.remove('transform', 'rotate-180');
+      } else {
+        dropdown.style.display = 'block';
+        arrow.classList.add('transform', 'rotate-180');
+      }
+    }
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function(event) {
+      if (!event.target.closest('.teacher-card')) {
+        const dropdowns = document.querySelectorAll('.dropdown-content');
+        const arrows = document.querySelectorAll('[id$="-arrow"]');
+        
+        dropdowns.forEach(dropdown => {
+          dropdown.style.display = 'none';
+        });
+        
+        arrows.forEach(arrow => {
+          arrow.classList.remove('transform', 'rotate-180');
+        });
+      }
+    });
+
+    // Filter by subject function
+    function filterBySubject() {
+      const selectedSubject = document.getElementById('subjectFilter').value;
+      const allSections = document.querySelectorAll('.teacher-section');
+      
+      allSections.forEach(section => {
+        const sectionSubject = section.getAttribute('data-subject');
+        
+        if (selectedSubject === 'all' || sectionSubject === selectedSubject) {
+          section.classList.remove('hidden-section');
+        } else {
+          section.classList.add('hidden-section');
+        }
+      });
+      
+      // Clear teacher search when changing subject filter
+      document.getElementById('teacherSearch').value = '';
+    }
+
+    // Search teachers function
+    function searchTeachers() {
+      const searchQuery = document.getElementById('teacherSearch').value.toLowerCase();
+      const allTeachers = document.querySelectorAll('.teacher-card');
+      
+      if (searchQuery === '') {
+        // Show all teachers when search is empty
+        allTeachers.forEach(teacher => {
+          teacher.style.display = '';
+        });
+        return;
+      }
+      
+      allTeachers.forEach(teacher => {
+        const teacherName = teacher.getAttribute('data-teacher').toLowerCase();
+        
+        if (teacherName.includes(searchQuery)) {
+          teacher.style.display = '';
+          
+          // Make sure the parent section is visible
+          const parentSection = teacher.closest('.teacher-section');
+          if (parentSection) {
+            parentSection.classList.remove('hidden-section');
+          }
+        } else {
+          teacher.style.display = 'none';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

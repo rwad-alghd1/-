@@ -1,0 +1,370 @@
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>لوحة التحكم - إدارة التسجيلات</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+            font-family: 'Cairo', sans-serif;
+        }
+        .password-protected {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .password-box {
+            background: white;
+            padding: 2rem;
+            border-radius: 8px;
+            width: 300px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-gray-100">
+    <!-- Password Protection -->
+    <div id="password-protection" class="password-protected">
+        <div class="password-box">
+            <h3 class="text-lg font-semibold mb-4">الرجاء إدخال كلمة المرور</h3>
+            <input type="password" id="admin-password" class="border border-gray-300 rounded-md px-3 py-2 w-full mb-4" placeholder="كلمة المرور">
+            <button id="password-submit" class="bg-[#E6D88B] hover:bg-[#d4c77d] text-[#0B0D23] px-4 py-2 rounded-md font-medium">
+                دخول
+            </button>
+        </div>
+    </div>
+
+    <div id="admin-content" class="hidden">
+        <header class="bg-[#0B0D23] text-white p-4">
+            <div class="max-w-7xl mx-auto flex justify-between items-center">
+                <h1 class="text-xl font-bold">لوحة التحكم - تسجيلات الطلاب</h1>
+                <div class="flex items-center space-x-4">
+                    <span id="registrations-count" class="bg-[#E6D88B] text-[#0B0D23] px-3 py-1 rounded-full text-sm"></span>
+                    <button id="export-csv" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm">
+                        تصدير إلى CSV
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto p-4">
+            <div class="bg-white rounded-lg shadow overflow-hidden mb-6">
+                <div class="p-4 border-b border-gray-200">
+                    <h2 class="text-lg font-semibold">إحصائيات التسجيلات</h2>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-600">إجمالي المسجلين</h3>
+                        <p id="total-registrations" class="text-2xl font-bold">0</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-600">مسجلين اليوم</h3>
+                        <p id="today-registrations" class="text-2xl font-bold">0</p>
+                    </div>
+                    <div class="bg-yellow-50 p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-600">أكثر مستوى</h3>
+                        <p id="top-level" class="text-2xl font-bold">-</p>
+                    </div>
+                    <div class="bg-purple-50 p-4 rounded-lg">
+                        <h3 class="text-sm text-gray-600">أكثر مادة</h3>
+                        <p id="top-subject" class="text-2xl font-bold">-</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow overflow-hidden">
+                <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+                    <h2 class="text-lg font-semibold">قائمة المسجلين</h2>
+                    <div class="flex space-x-2">
+                        <input type="text" id="search-input" placeholder="بحث..." class="border border-gray-300 rounded-md px-3 py-1 text-sm">
+                        <select id="level-filter" class="border border-gray-300 rounded-md px-2 py-1 text-sm">
+                            <option value="">جميع المستويات</option>
+                            <option value="primary">السنة الأولى ابتدائي</option>
+                            <option value="middle-1">السنة الأولى متوسط</option>
+                            <option value="middle-2">السنة الثانية متوسط</option>
+                            <option value="middle-3">السنة الثالثة متوسط</option>
+                            <option value="middle-4">السنة الرابعة متوسط</option>
+                            <option value="secondary">السنة الأولى ثانوي</option>
+                            <option value="secondary-2">السنة الثانية ثانوي</option>
+                            <option value="secondary-3">السنة الثالثة ثانوي</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead class="bg-gray-50">
+                            <tr>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الاسم</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">البريد الإلكتروني</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">الهاتف</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المستوى</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">المواد</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">تاريخ التسجيل</th>
+                                <th class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">آخر تحديث</th>
+                            </tr>
+                        </thead>
+                        <tbody id="registrations-table" class="bg-white divide-y divide-gray-200">
+                            <!-- Data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
+                </div>
+                <div class="p-4 border-t border-gray-200 flex justify-between items-center">
+                    <div class="text-sm text-gray-600" id="table-info">عرض 0 إلى 0 من 0 مدخلات</div>
+                    <div class="flex space-x-2">
+                        <button id="prev-page" class="px-3 py-1 border rounded text-sm disabled:opacity-50" disabled>السابق</button>
+                        <button id="next-page" class="px-3 py-1 border rounded text-sm disabled:opacity-50" disabled>التالي</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const ADMIN_PASSWORD = 'smartRSM'; // Change this to your actual password
+            const passwordProtection = document.getElementById('password-protection');
+            const adminContent = document.getElementById('admin-content');
+            const passwordInput = document.getElementById('admin-password');
+            const passwordSubmit = document.getElementById('password-submit');
+            
+            // Check if password is already in session storage
+            if (sessionStorage.getItem('adminAuthenticated') === 'true') {
+                passwordProtection.style.display = 'none';
+                adminContent.style.display = 'block';
+                loadRegistrations();
+            }
+            
+            // Password submission
+            passwordSubmit.addEventListener('click', function() {
+                if (passwordInput.value === ADMIN_PASSWORD) {
+                    sessionStorage.setItem('adminAuthenticated', 'true');
+                    passwordProtection.style.display = 'none';
+                    adminContent.style.display = 'block';
+                    loadRegistrations();
+                } else {
+                    alert('كلمة المرور غير صحيحة');
+                }
+            });
+            
+            // Allow Enter key to submit password
+            passwordInput.addEventListener('keyup', function(e) {
+                if (e.key === 'Enter') {
+                    passwordSubmit.click();
+                }
+            });
+            
+            // Registration data handling
+            let allRegistrations = [];
+            let currentPage = 1;
+            const rowsPerPage = 10;
+            
+            function loadRegistrations() {
+                const registrationsData = localStorage.getItem('allRegistrations');
+                allRegistrations = registrationsData ? JSON.parse(registrationsData) : [];
+                
+                updateStatistics();
+                renderTable();
+            }
+            
+            function updateStatistics() {
+                document.getElementById('total-registrations').textContent = allRegistrations.length;
+                document.getElementById('registrations-count').textContent = allRegistrations.length;
+                
+                // Count today's registrations
+                const today = new Date().toISOString().split('T')[0];
+                const todayCount = allRegistrations.filter(reg => 
+                    reg.registrationDate && reg.registrationDate.includes(today)
+                ).length;
+                document.getElementById('today-registrations').textContent = todayCount;
+                
+                // Find most common level
+                const levelCounts = {};
+                allRegistrations.forEach(reg => {
+                    levelCounts[reg.level] = (levelCounts[reg.level] || 0) + 1;
+                });
+                const topLevel = Object.entries(levelCounts).sort((a, b) => b[1] - a[1])[0];
+                document.getElementById('top-level').textContent = topLevel ? 
+                    translateLevel(topLevel[0]) + ` (${topLevel[1]})` : '-';
+                
+                // Find most common subject
+                const subjectCounts = {};
+                allRegistrations.forEach(reg => {
+                    if (reg.subjects) {
+                        reg.subjects.forEach(subject => {
+                            subjectCounts[subject] = (subjectCounts[subject] || 0) + 1;
+                        });
+                    }
+                });
+                const topSubject = Object.entries(subjectCounts).sort((a, b) => b[1] - a[1])[0];
+                document.getElementById('top-subject').textContent = topSubject ? 
+                    translateSubject(topSubject[0]) + ` (${topSubject[1]})` : '-';
+            }
+            
+            function translateLevel(level) {
+                const levels = {
+                    'primary': 'الأولى ابتدائي',
+                    'middle-1': 'الأولى متوسط',
+                    'middle-2': 'الثانية متوسط',
+                    'middle-3': 'الثالثة متوسط',
+                    'middle-4': 'الرابعة متوسط',
+                    'secondary': 'الأولى ثانوي',
+                    'secondary-2': 'الثانية ثانوي',
+                    'secondary-3': 'الثالثة ثانوي'
+                };
+                return levels[level] || level;
+            }
+            
+            function translateSubject(subject) {
+                const subjects = {
+                    'math': 'الرياضيات',
+                    'arabic': 'العربية',
+                    'french': 'الفرنسية',
+                    'science': 'العلوم',
+                    'physics': 'الفيزياء',
+                    'history': 'التاريخ'
+                };
+                return subjects[subject] || subject;
+            }
+            
+            function renderTable(filteredData = null) {
+                const data = filteredData || allRegistrations;
+                const startIndex = (currentPage - 1) * rowsPerPage;
+                const endIndex = startIndex + rowsPerPage;
+                const paginatedData = data.slice(startIndex, endIndex);
+                
+                const tableBody = document.getElementById('registrations-table');
+                tableBody.innerHTML = '';
+                
+                if (paginatedData.length === 0) {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td colspan="7" class="px-6 py-4 text-center text-sm text-gray-500">
+                            لا توجد بيانات متاحة
+                        </td>
+                    `;
+                    tableBody.appendChild(row);
+                } else {
+                    paginatedData.forEach(registration => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
+                                ${registration.lastName} ${registration.firstName}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${registration.email || '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${registration.phone || '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${translateLevel(registration.level)}
+                            </td>
+                            <td class="px-6 py-4 text-sm text-gray-500">
+                                ${registration.subjects ? registration.subjects.map(translateSubject).join('، ') : '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${registration.registrationDate ? new Date(registration.registrationDate).toLocaleString() : '-'}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                ${registration.lastUpdated ? new Date(registration.lastUpdated).toLocaleString() : '-'}
+                            </td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                }
+                
+                // Update pagination info
+                document.getElementById('table-info').textContent = 
+                    `عرض ${startIndex + 1} إلى ${Math.min(endIndex, data.length)} من ${data.length} مدخلات`;
+                
+                // Update pagination buttons
+                document.getElementById('prev-page').disabled = currentPage === 1;
+                document.getElementById('next-page').disabled = endIndex >= data.length;
+            }
+            
+            // Pagination controls
+            document.getElementById('prev-page').addEventListener('click', function() {
+                if (currentPage > 1) {
+                    currentPage--;
+                    renderTable();
+                }
+            });
+            
+            document.getElementById('next-page').addEventListener('click', function() {
+                if ((currentPage * rowsPerPage) < allRegistrations.length) {
+                    currentPage++;
+                    renderTable();
+                }
+            });
+            
+            // Search functionality
+            document.getElementById('search-input').addEventListener('input', function(e) {
+                const searchTerm = e.target.value.toLowerCase();
+                if (searchTerm) {
+                    const filtered = allRegistrations.filter(reg => 
+                        (reg.firstName && reg.firstName.toLowerCase().includes(searchTerm)) ||
+                        (reg.lastName && reg.lastName.toLowerCase().includes(searchTerm)) ||
+                        (reg.email && reg.email.toLowerCase().includes(searchTerm)) ||
+                        (reg.phone && reg.phone.includes(searchTerm))
+                    );
+                    renderTable(filtered);
+                } else {
+                    renderTable();
+                }
+            });
+            
+            // Level filter
+            document.getElementById('level-filter').addEventListener('change', function(e) {
+                const level = e.target.value;
+                if (level) {
+                    const filtered = allRegistrations.filter(reg => reg.level === level);
+                    renderTable(filtered);
+                } else {
+                    renderTable();
+                }
+            });
+            
+            // Export to CSV
+            document.getElementById('export-csv').addEventListener('click', function() {
+                if (allRegistrations.length === 0) {
+                    alert('لا توجد بيانات لتصديرها');
+                    return;
+                }
+                
+                let csv = 'الاسم,البريد الإلكتروني,الهاتف,المستوى,المواد,تاريخ التسجيل,آخر تحديث\n';
+                
+                allRegistrations.forEach(reg => {
+                    const name = `"${reg.lastName} ${reg.firstName}"`;
+                    const email = reg.email || '';
+                    const phone = reg.phone || '';
+                    const level = translateLevel(reg.level);
+                    const subjects = reg.subjects ? reg.subjects.map(translateSubject).join('، ') : '';
+                    const regDate = reg.registrationDate ? new Date(reg.registrationDate).toLocaleString() : '';
+                    const updateDate = reg.lastUpdated ? new Date(reg.lastUpdated).toLocaleString() : '';
+                    
+                    csv += `${name},${email},${phone},${level},"${subjects}",${regDate},${updateDate}\n`;
+                });
+                
+                const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.setAttribute('href', url);
+                link.setAttribute('download', `registrations_${new Date().toISOString().split('T')[0]}.csv`);
+                link.style.visibility = 'hidden';
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+            });
+        });
+    </script>
+</body>
+</html>

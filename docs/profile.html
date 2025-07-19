@@ -1,0 +1,500 @@
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1" name="viewport"/>
+  <title>حسابي - منصة الدراسة</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+    }
+    .notification-item.unread {
+      background-color: #f8f9fa;
+    }
+    /* Mobile menu animation */
+    .mobile-menu {
+      transition: all 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+    }
+    .mobile-menu.open {
+      max-height: 500px;
+    }
+    .loader {
+      border: 3px solid #f3f3f3;
+      border-top: 3px solid #E6D88B;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      animation: spin 1s linear infinite;
+      display: none;
+      margin-right: 10px;
+    }
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+  </style>
+</head>
+<body class="bg-gray-50 text-[#0B0D23]">
+  <header class="sticky top-0 z-40 bg-white shadow-sm">
+    <div class="flex justify-between items-center px-4 sm:px-8 py-4 max-w-[1280px] mx-auto">
+      <div class="flex items-center space-x-4 space-x-reverse">
+        <!-- Mobile menu button -->
+        <button id="mobile-menu-button" class="md:hidden text-gray-700 focus:outline-none" aria-expanded="false" aria-controls="mobile-menu">
+          <i class="fas fa-bars text-xl"></i>
+        </button>
+        <a class="flex items-center" href="index.html">
+          <img alt="شعار المنصة" class="w-14 h-14" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-6/520308821_122097273398945809_1111380084754382768_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeGK2QqnrRdovE-iEpEzqKRDO4R2DQlrRqg7hHYNCWtGqHNOE3LjRb8UFKbVjawU_sTl8fhiGcgshikfaxoKlQCP&_nc_ohc=fFK40rPLWZMQ7kNvwHNdZGf&_nc_oc=AdmjRgEpj3GByUIO0RkDS8f0p4JQ6-ugWwIQKrGiClqf7USNyjqd3kHATWErIQIWp7A&_nc_zt=23&_nc_ht=scontent.faae2-2.fna&_nc_gid=I9TeYgJlyJF2lshbcAykVQ&oh=00_AfQsuMGJ02rhwnS2ekuaaVza_HnpSLN7v_kGqcvR7aRh7w&oe=687BEAD4"/>
+        </a>
+      </div>
+      
+      <nav class="hidden md:flex text-sm font-normal text-[#0B0D23]">
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="about.html">لمحة عن المنصة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="index.html">الرئيسية</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="lessons.html">الدروس المسجلة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="live-lessons.html">الدروس المباشرة</a>
+        <a class="hover:text-[#E6D88B] transition-colors mx-4" href="admin.html">المسؤولون</a>
+      </nav>
+      
+      <div class="flex items-center space-x-6 space-x-reverse text-sm text-[#0B0D23]">
+        <!-- Notification Bell -->
+        <div class="relative cursor-pointer" id="notificationBell">
+          <i class="fas fa-bell text-lg"></i>
+          <span class="absolute -top-1 -right-1 bg-red-500 text-white rounded-full w-4 h-4 flex items-center justify-center text-xs hidden" id="notificationBadge"></span>
+        </div>
+        <!-- User Icon -->
+        <div class="flex items-center space-x-2 space-x-reverse">
+          <i class="fas fa-user-circle text-lg"></i>
+          <a class="text-[#E6D88B] font-semibold" href="profile.html">حسابي</a>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="mobile-menu md:hidden bg-white border-t border-gray-200">
+      <div class="px-4 py-3 space-y-3">
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="about.html">لمحة عن المنصة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="index.html">الرئيسية</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="lessons.html">الدروس المسجلة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="live-lessons.html">الدروس المباشرة</a>
+        <a class="block hover:text-[#E6D88B] transition-colors py-2" href="admin.html">المسؤولون</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Notification Dropdown -->
+  <div id="notificationDropdown" class="hidden fixed right-4 sm:right-8 top-20 max-w-[320px] w-full bg-white shadow-lg rounded-lg z-50 border border-gray-200">
+    <div class="p-4 border-b border-gray-200 flex justify-between items-center">
+      <h3 class="font-semibold">إشعارات المتابعة</h3>
+      <button id="markAllRead" class="text-xs text-blue-500">تعيين الكل كمقروء</button>
+    </div>
+    <div id="notificationList" class="max-h-[400px] overflow-y-auto">
+      <div class="p-4 border-b border-gray-100 text-sm notification-item">
+        سيتم عرض إشعارات المتابعة هنا عند إضافة الأساتذة محتوى جديد
+      </div>
+    </div>
+    <div class="p-2 text-center text-xs text-gray-500">
+      <a href="notifications.html" class="hover:text-[#E6D88B]">عرض جميع الإشعارات</a>
+    </div>
+  </div>
+
+  <main class="max-w-[1280px] mx-auto px-4 sm:px-8 py-8">
+    <section class="mb-10 text-center">
+      <h1 class="text-2xl font-semibold mb-2">حسابي</h1>
+      <p class="text-sm text-gray-600">أكمل معلوماتك لتتمكن من متابعة الدروس واستلام الإشعارات</p>
+    </section>
+
+    <div id="profile-status" class="hidden bg-blue-50 border-l-4 border-blue-400 p-4 mb-8">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <i class="fas fa-check-circle text-blue-400 mt-1"></i>
+        </div>
+        <div class="mr-3">
+          <p class="text-sm text-blue-700">
+            تم تحديث معلومات حسابك بنجاح
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
+      <form id="profile-form">
+        <input type="hidden" name="_language" value="ar">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+          <div>
+            <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-[#E6D88B]">المعلومات الشخصية</h3>
+            
+            <div class="mb-4">
+              <label for="first-name" class="block text-sm font-medium mb-1">الاسم</label>
+              <input type="text" id="first-name" name="first_name" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" required>
+            </div>
+            
+            <div class="mb-4">
+              <label for="last-name" class="block text-sm font-medium mb-1">اللقب</label>
+              <input type="text" id="last-name" name="last_name" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" required>
+            </div>
+            
+            <div class="mb-4">
+              <label for="email" class="block text-sm font-medium mb-1">البريد الإلكتروني</label>
+              <input type="email" id="email" name="email" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" required>
+              <p class="text-xs text-gray-500 mt-1">سيتم إرسال الإشعارات والتحديثات على هذا البريد</p>
+            </div>
+            
+            <div class="mb-4">
+              <label for="phone" class="block text-sm font-medium mb-1">رقم الهاتف (اختياري)</label>
+              <input type="tel" id="phone" name="phone" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm">
+            </div>
+          </div>
+          
+          <div>
+            <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-[#E6D88B]">المعلومات التعليمية</h3>
+            
+            <div class="mb-4">
+              <label for="level" class="block text-sm font-medium mb-1">المستوى الدراسي</label>
+              <select id="level" name="level" class="w-full border border-gray-300 rounded-md px-3 py-2 text-sm" required>
+                <option value="" disabled selected>اختر مستواك</option>
+                <option value="primary">السنة الأولى ابتدائي</option>
+                <option value="middle-1">السنة الأولى متوسط</option>
+                <option value="middle-2">السنة الثانية متوسط</option>
+                <option value="middle-3">السنة الثالثة متوسط</option>
+                <option value="middle-4">السنة الرابعة متوسط</option>
+                <option value="secondary">السنة الأولى ثانوي</option>
+                <option value="secondary-2">السنة الثانية ثانوي</option>
+                <option value="secondary-3">السنة الثالثة ثانوي</option>
+              </select>
+            </div>
+            
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-2">المواد المفضلة</label>
+              <div class="grid grid-cols-2 gap-2">
+                <div class="flex items-center">
+                  <input type="checkbox" id="math" name="subjects[]" value="math" class="mr-2">
+                  <label for="math" class="text-sm">الرياضيات</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="arabic" name="subjects[]" value="arabic" class="mr-2">
+                  <label for="arabic" class="text-sm">اللغة العربية</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="french" name="subjects[]" value="french" class="mr-2">
+                  <label for="french" class="text-sm">اللغة الفرنسية</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="science" name="subjects[]" value="science" class="mr-2">
+                  <label for="science" class="text-sm">العلوم الطبيعية</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="physics" name="subjects[]" value="physics" class="mr-2">
+                  <label for="physics" class="text-sm">الفيزياء</label>
+                </div>
+                <div class="flex items-center">
+                  <input type="checkbox" id="history" name="subjects[]" value="history" class="mr-2">
+                  <label for="history" class="text-sm">التاريخ والجغرافيا</label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mb-8">
+          <h3 class="text-lg font-semibold mb-4 pb-2 border-b border-[#E6D88B]">تفضيلات الإشعارات</h3>
+          
+          <div class="space-y-3">
+            <div class="flex items-center justify-between">
+              <div>
+                <label for="email-notifications" class="block text-sm font-medium">الإشعارات عبر البريد الإلكتروني</label>
+                <p class="text-xs text-gray-500">تلقي إشعارات عند إضافة محتوى جديد</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="email-notifications" name="email_notifications" class="sr-only peer" checked>
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E6D88B]"></div>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div>
+                <label for="live-notifications" class="block text-sm font-medium">إشعارات الدروس المباشرة</label>
+                <p class="text-xs text-gray-500">تلقي تنبيهات قبل بدء الدروس المباشرة</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="live-notifications" name="live_notifications" class="sr-only peer" checked>
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E6D88B]"></div>
+              </label>
+            </div>
+            
+            <div class="flex items-center justify-between">
+              <div>
+                <label for="assignment-notifications" class="block text-sm font-medium">إشعارات الواجبات</label>
+                <p class="text-xs text-gray-500">تلقي تنبيهات عند إضافة واجبات جديدة</p>
+              </div>
+              <label class="relative inline-flex items-center cursor-pointer">
+                <input type="checkbox" id="assignment-notifications" name="assignment_notifications" class="sr-only peer" checked>
+                <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#E6D88B]"></div>
+              </label>
+            </div>
+          </div>
+        </div>
+        
+        <div class="flex justify-center items-center">
+          <button type="submit" id="submit-btn" class="bg-[#E6D88B] hover:bg-[#d4c77d] text-[#0B0D23] px-6 py-2 rounded-md font-medium text-sm transition-colors flex items-center">
+            <span id="submit-text">حفظ التغييرات</span>
+            <div id="submit-spinner" class="loader"></div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </main>
+  
+  <footer class="bg-black text-white py-6">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-8 flex flex-col sm:flex-row justify-between items-center text-xs">
+      <div class="flex items-center space-x-4 space-x-reverse mb-4 sm:mb-0">
+        <img alt="شعار المنصة" class="w-10 h-10" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-6/518344447_1263687285413942_8845202209828823666_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeHX_KLRVOw4Z5froX7-Wlp2phdHxde2JASmF0fF17YkBHq5UxjK56ZgEHLFifhCPC76_HGspn4SkJ5SlxeHvwFj&_nc_ohc=JL7IVgBh50UQ7kNvwHT79LZ&_nc_oc=Adlf6i09vgR7aB8lCFS4wA-xzJWwnQp6nI2G6KEvspl9b5aMaVCXcQDndCiJxaqmiKI&_nc_zt=23&_nc_ht=scontent.faae2-2.fna&_nc_gid=S3dDxxC5YOlZ6fsAn0_eww&oh=00_AfSX0EvjoXnh6lT2Z0YuLxQMBCOc10SwCbmxJf8mdTVn_Q&oe=687BFFD3"/>
+        <div> 
+          <p>منصة رواد الغد</p>
+          <p>جميع الحقوق محفوظة © 2025</p>
+        </div>
+      </div>
+      <div class="text-right">
+        <p class="font-semibold mb-1">تواصل معنا:</p>
+        <div class="flex justify-end space-x-3 space-x-reverse mt-2">
+          <a href="https://t.me/smartacademyschool23" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.5-.99-.65-.35-1.01.22-1.59.15-.15 2.71-2.48 2.76-2.69.03-.08.05-.17-.05-.25s-.34-.04-.49-.03c-.21.03-3.49 2.19-4.93 3.23-.53.38-1.02.57-1.46.56-.48-.01-1.4-.27-1.09-1.12.27-.73.8-1.87 1.26-2.74.83-1.58 1.67-3.33 2.47-5 .22-.47.44-.9.66-1.3.25-.45.55-.6.94-.6.12 0 .27.02.39.12.17.12.22.34.2.53-.04.25-.5 2.4-.53 2.63-.06.42.12.6.34.62.18.01.63-.13 1.6-1.24.23-.27.42-.4.75-.4.18 0 .38.04.55.13.42.23.5.74.67 1.88z"/>
+            </svg>
+          </a>
+          <a href="https://www.facebook.com/profile.php?id=61556101467768" target="_blank" rel="noopener noreferrer" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/>
+            </svg>
+          </a>
+          <a href="mailto:smartacademyschool23@gmail.com" class="hover:opacity-80">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Mobile menu toggle
+      const mobileMenuButton = document.getElementById('mobile-menu-button');
+      const mobileMenu = document.getElementById('mobile-menu');
+      
+      mobileMenuButton.addEventListener('click', function() {
+        mobileMenu.classList.toggle('open');
+        const isExpanded = mobileMenu.classList.contains('open');
+        mobileMenuButton.setAttribute('aria-expanded', isExpanded);
+      });
+      
+      // Close mobile menu when clicking outside
+      document.addEventListener('click', function(event) {
+        if (!mobileMenu.contains(event.target) && !mobileMenuButton.contains(event.target)) {
+          mobileMenu.classList.remove('open');
+          mobileMenuButton.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Notification system
+      const notificationBell = document.getElementById('notificationBell');
+      const notificationBadge = document.getElementById('notificationBadge');
+      const notificationDropdown = document.getElementById('notificationDropdown');
+      
+      notificationBell.addEventListener('click', function(e) {
+        e.stopPropagation();
+        notificationDropdown.classList.toggle('hidden');
+      });
+      
+      document.addEventListener('click', function() {
+        notificationDropdown.classList.add('hidden');
+      });
+
+      // Profile form handling
+      const profileForm = document.getElementById('profile-form');
+      const profileStatus = document.getElementById('profile-status');
+      const submitBtn = document.getElementById('submit-btn');
+      const submitText = document.getElementById('submit-text');
+      const spinner = document.getElementById('submit-spinner');
+      
+      // Load saved profile data if exists
+      const savedProfile = JSON.parse(localStorage.getItem('userProfile'));
+      if (savedProfile) {
+        document.getElementById('first-name').value = savedProfile.firstName || '';
+        document.getElementById('last-name').value = savedProfile.lastName || '';
+        document.getElementById('email').value = savedProfile.email || '';
+        document.getElementById('phone').value = savedProfile.phone || '';
+        document.getElementById('level').value = savedProfile.level || '';
+        
+        // Set checkboxes
+        if (savedProfile.subjects) {
+          savedProfile.subjects.forEach(subject => {
+            const checkbox = document.querySelector(`input[name="subjects[]"][value="${subject}"]`);
+            if (checkbox) checkbox.checked = true;
+          });
+        }
+        
+        // Set notification preferences
+        document.getElementById('email-notifications').checked = savedProfile.notifications?.email !== false;
+        document.getElementById('live-notifications').checked = savedProfile.notifications?.live !== false;
+        document.getElementById('assignment-notifications').checked = savedProfile.notifications?.assignments !== false;
+      }
+      
+      // Form submission
+      profileForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        // Disable button and show spinner
+        submitBtn.disabled = true;
+        submitText.textContent = 'جاري الحفظ...';
+        spinner.style.display = 'inline-block';
+        
+        try {
+          // Get form values
+          const profileData = {
+            isRegistered: true,
+            firstName: document.getElementById('first-name').value,
+            lastName: document.getElementById('last-name').value,
+            email: document.getElementById('email').value,
+            phone: document.getElementById('phone').value || '',
+            level: document.getElementById('level').value,
+            subjects: Array.from(document.querySelectorAll('input[name="subjects[]"]:checked')).map(el => el.value),
+            notifications: {
+              email: document.getElementById('email-notifications').checked,
+              live: document.getElementById('live-notifications').checked,
+              assignments: document.getElementById('assignment-notifications').checked
+            },
+            lastUpdated: new Date().toISOString()
+          };
+          
+          // Validate required fields
+          if (!profileData.firstName || !profileData.lastName || !profileData.email || !profileData.level) {
+            throw new Error('الرجاء ملء جميع الحقول المطلوبة');
+          }
+          
+          // Validate email format
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profileData.email)) {
+            throw new Error('البريد الإلكتروني غير صالح');
+          }
+          
+          // Save to localStorage
+          localStorage.setItem('userProfile', JSON.stringify(profileData));
+          
+          // Send data to Google Sheets
+          const response = await sendToGoogleSheets(profileData);
+          
+          if (response && response.success) {
+            showStatusMessage('تم تحديث معلومات حسابك بنجاح', 'success');
+            
+            // Send welcome email if this is first registration
+            if (!savedProfile) {
+              await sendWelcomeEmail(profileData.email, profileData.firstName);
+            }
+          } else {
+            throw new Error(response?.message || 'حدث خطأ أثناء حفظ البيانات');
+          }
+        } catch (error) {
+          console.error('Error:', error);
+          showStatusMessage(error.message || 'حدث خطأ غير متوقع', 'error');
+        } finally {
+          // Re-enable button and hide spinner
+          submitBtn.disabled = false;
+          submitText.textContent = 'حفظ التغييرات';
+          spinner.style.display = 'none';
+        }
+      });
+      
+      // Function to show status message
+      function showStatusMessage(message, type) {
+        const icon = profileStatus.querySelector('i');
+        const text = profileStatus.querySelector('p');
+        
+        text.textContent = message;
+        
+        if (type === 'success') {
+          profileStatus.className = 'bg-green-50 border-l-4 border-green-400 p-4 mb-8';
+          icon.className = 'fas fa-check-circle text-green-400 mt-1';
+        } else {
+          profileStatus.className = 'bg-red-50 border-l-4 border-red-400 p-4 mb-8';
+          icon.className = 'fas fa-exclamation-circle text-red-400 mt-1';
+        }
+        
+        profileStatus.classList.remove('hidden');
+        
+        // Hide message after 5 seconds
+        setTimeout(() => {
+          profileStatus.classList.add('hidden');
+        }, 5000);
+      }
+      
+      // Function to send data to Google Sheets
+      async function sendToGoogleSheets(data) {
+        const scriptUrl = 'https://script.google.com/macros/s/1Ffjq2B5gVe9brbmn4ZGIt9pxQOVlAM00W59iWmAcKMI/exec';
+        
+        try {
+          const response = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              action: 'addUser',
+              firstName: data.firstName,
+              lastName: data.lastName,
+              email: data.email,
+              phone: data.phone,
+              level: data.level,
+              subjects: data.subjects,
+              emailNotifications: data.notifications.email,
+              liveNotifications: data.notifications.live,
+              assignmentNotifications: data.notifications.assignments
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          
+          return await response.json();
+        } catch (error) {
+          console.error('Error saving to Google Sheets:', error);
+          throw new Error('تعذر الاتصال بالخادم. يرجى المحاولة مرة أخرى لاحقًا.');
+        }
+      }
+      
+      // Function to send welcome email
+      async function sendWelcomeEmail(email, name) {
+        const scriptUrl = 'https://script.google.com/macros/s/1Ffjq2B5gVe9brbmn4ZGIt9pxQOVlAM00W59iWmAcKMI/exec';
+        
+        try {
+          const response = await fetch(scriptUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              action: 'sendWelcomeEmail',
+              email: email,
+              name: name
+            })
+          });
+          
+          if (!response.ok) {
+            throw new Error('Failed to send welcome email');
+          }
+          
+          return await response.json();
+        } catch (error) {
+          console.error('Error sending welcome email:', error);
+          // Don't show error to user for email sending failure
+        }
+      }
+    });
+  </script>
+</body>
+</html>
