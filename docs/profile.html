@@ -125,8 +125,13 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
-      <form id="profile-form">
+      <form id="profile-form" action="https://formsubmit.co/el/sakedo" method="POST">
         <input type="hidden" name="_language" value="ar">
+        <input type="hidden" name="_subject" value="تسجيل جديد في منصة الدراسة">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://rwad-alghd1.github.io/-/index.html">
+        <input type="hidden" name="_autoresponse" value="مرحبًا بك في منصة الدراسة! شكرًا لتسجيلك معنا. سنقوم بالتواصل معك قريبًا.">
+        <input type="hidden" name="_captcha" value="false">
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div>
@@ -389,19 +394,12 @@
           // Save to localStorage
           localStorage.setItem('userProfile', JSON.stringify(profileData));
           
-          // Send data to Google Sheets
-          const response = await sendToGoogleSheets(profileData);
+          // Submit the form to FormSubmit
+          profileForm.submit();
           
-          if (response && response.success) {
-            showStatusMessage('تم تحديث معلومات حسابك بنجاح', 'success');
-            
-            // Send welcome email if this is first registration
-            if (!savedProfile) {
-              await sendWelcomeEmail(profileData.email, profileData.firstName);
-            }
-          } else {
-            throw new Error(response?.message || 'حدث خطأ أثناء حفظ البيانات');
-          }
+          // Show success message
+          showStatusMessage('تم تحديث معلومات حسابك بنجاح', 'success');
+          
         } catch (error) {
           console.error('Error:', error);
           showStatusMessage(error.message || 'حدث خطأ غير متوقع', 'error');
@@ -434,69 +432,6 @@
         setTimeout(() => {
           profileStatus.classList.add('hidden');
         }, 5000);
-      }
-      
-      // Function to send data to Google Sheets
-      async function sendToGoogleSheets(data) {
-        const scriptUrl = 'https://script.google.com/macros/s/AKfycbwCWZ5ACAa41BnlIYDYgtnchHs3UbFDfcWoqi5AqQ1f6qlgtbVoQcgWFRFQn9mh3Xg3/exec';
-        
-        try {
-          const response = await fetch(scriptUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              action: 'addUser',
-              firstName: data.firstName,
-              lastName: data.lastName,
-              email: data.email,
-              phone: data.phone,
-              level: data.level,
-              subjects: data.subjects,
-              emailNotifications: data.notifications.email,
-              liveNotifications: data.notifications.live,
-              assignmentNotifications: data.notifications.assignments
-            })
-          });
-          
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          
-          return await response.json();
-        } catch (error) {
-          console.error('Error saving to Google Sheets:', error);
-          throw new Error('تعذر الاتصال بالخادم. يرجى المحاولة مرة أخرى لاحقًا.');
-        }
-      }
-      
-      // Function to send welcome email
-      async function sendWelcomeEmail(email, name) {
-        const scriptUrl = 'https://script.google.com/macros/s/1Ffjq2B5gVe9brbmn4ZGIt9pxQOVlAM00W59iWmAcKMI/exec';
-        
-        try {
-          const response = await fetch(scriptUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              action: 'sendWelcomeEmail',
-              email: email,
-              name: name
-            })
-          });
-          
-          if (!response.ok) {
-            throw new Error('Failed to send welcome email');
-          }
-          
-          return await response.json();
-        } catch (error) {
-          console.error('Error sending welcome email:', error);
-          // Don't show error to user for email sending failure
-        } 
       }
     });
   </script>
