@@ -350,15 +350,7 @@
         }
       });
 
-    // نظام المتابعة والإشعارات
-const notificationBell = document.getElementById('notificationBell');
-const notificationBadge = document.getElementById('notificationBadge');
-const notificationDropdown = document.getElementById('notificationDropdown');
-const notificationList = document.getElementById('notificationList');
-const markAllRead = document.getElementById('markAllRead');
-const followButtons = document.querySelectorAll('.follow-button');
-
-// تخزين محلي للمستخدم والمتابعات
+   // تخزين محلي للمستخدم والمتابعات
 let currentUser = {
   id: 'user_' + Math.random().toString(36).substr(2, 9),
   name: 'مستخدم جديد',
@@ -407,7 +399,7 @@ followButtons.forEach(button => {
       // متابعة جديدة
       currentUser.following.push(teacherId);
       
-      // إشعار للمستخدم
+      // إشعار للمستخدم (يظهر الاسم الكامل كما هو في كائن teachers)
       addNotification(`بدأت متابعة ${teachers[teacherId].name}`, 'متابعة جديدة');
     }
     
@@ -492,135 +484,134 @@ if (markAllRead) {
     updateNotificationList();
     updateNotificationBadge();
   });
-      }
+}
+
+// محاكاة إضافة مواد من الأساتذة (للتجربة فقط)
+function simulateTeacherActivity() {
+  setInterval(() => {
+    const randomTeacherId = Math.floor(Math.random() * 10) + 1;
+    const teacher = teachers[randomTeacherId.toString()];
+    
+    if (teacher && currentUser.following.includes(randomTeacherId.toString())) {
+      const materials = ['ملف جديد', 'رابط محاضرة', 'واجب منزلي', 'ملخص الدرس'];
+      const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
       
-      // محاكاة إضافة مواد من الأساتذة (للتجربة فقط)
-      function simulateTeacherActivity() {
-        setInterval(() => {
-          const randomTeacherId = Math.floor(Math.random() * 10) + 1;
-          const teacher = teachers[randomTeacherId.toString()];
-          
-          if (teacher && currentUser.following.includes(randomTeacherId.toString())) {
-            const materials = ['ملف جديد', 'رابط محاضرة', 'واجب منزلي', 'ملخص الدرس'];
-            const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
-            
-            addNotification(`أضاف الأستاذ ${teacher.name} ${randomMaterial}`, 'مادة جديدة');
-          }
-        }, 15000); // كل 15 ثانية
-      }
-      
-      // Search and Filter Functionality
-      const teacherSearch = document.getElementById('teacherSearch');
-      const subjectFilter = document.getElementById('subjectFilter');
-      const levelFilter = document.getElementById('levelFilter');
-      const middleTeachersContainer = document.getElementById('middleTeachersContainer');
-      const highTeachersContainer = document.getElementById('highTeachersContainer');
-      const middleSchoolSection = document.getElementById('middle-school-teachers');
-      const highSchoolSection = document.getElementById('high-school-teachers');
-      
-      // Function to filter teachers
-      function filterTeachers() {
-        const searchTerm = teacherSearch.value.toLowerCase();
-        const selectedSubject = subjectFilter.value;
-        const selectedLevel = levelFilter.value;
-        
-        // Filter middle school teachers
-        const middleTeachers = middleTeachersContainer.querySelectorAll('.teacher-card');
-        let middleVisible = false;
-        
-        middleTeachers.forEach(teacher => {
-          const teacherName = teacher.querySelector('h3').textContent.toLowerCase();
-          const teacherSubject = teacher.dataset.subject;
-          const teacherLevel = teacher.dataset.level;
-          
-          const nameMatch = teacherName.includes(searchTerm);
-          const subjectMatch = selectedSubject === 'all' || teacherSubject === selectedSubject;
-          const levelMatch = selectedLevel === 'all' || teacherLevel === selectedLevel;
-          
-          if (nameMatch && subjectMatch && levelMatch) {
-            teacher.style.display = 'block';
-            middleVisible = true;
-          } else {
-            teacher.style.display = 'none';
-          }
-        });
-        
-        // Show/hide middle school section based on visibility
-        middleSchoolSection.style.display = middleVisible ? 'block' : 'none';
-        
-        // Filter high school teachers
-        const highTeachers = highTeachersContainer.querySelectorAll('.teacher-card');
-        let highVisible = false;
-        
-        highTeachers.forEach(teacher => {
-          const teacherName = teacher.querySelector('h3').textContent.toLowerCase();
-          const teacherSubject = teacher.dataset.subject;
-          const teacherLevel = teacher.dataset.level;
-          
-          const nameMatch = teacherName.includes(searchTerm);
-          const subjectMatch = selectedSubject === 'all' || teacherSubject === selectedSubject;
-          const levelMatch = selectedLevel === 'all' || teacherLevel === selectedLevel;
-          
-          if (nameMatch && subjectMatch && levelMatch) {
-            teacher.style.display = 'block';
-            highVisible = true;
-          } else {
-            teacher.style.display = 'none';
-          }
-        });
-        
-        // Show/hide high school section based on visibility
-        highSchoolSection.style.display = highVisible ? 'block' : 'none';
-        
-        // Special handling for level filter
-        if (selectedLevel === 'middle') {
-          highSchoolSection.style.display = 'none';
-          middleSchoolSection.style.display = middleVisible ? 'block' : 'none';
-        } else if (selectedLevel === 'high') {
-          middleSchoolSection.style.display = 'none';
-          highSchoolSection.style.display = highVisible ? 'block' : 'none';
-        }
-      }
-      
-      // Event listeners for filters
-      teacherSearch.addEventListener('input', filterTeachers);
-      subjectFilter.addEventListener('change', filterTeachers);
-      levelFilter.addEventListener('change', filterTeachers);
-      
-      // تهيئة النظام
-      updateFollowButtons();
-      updateNotificationList();
-      updateNotificationBadge();
-      simulateTeacherActivity();
-      
-      // تفاعلات واجهة الإشعارات
-      notificationBell.addEventListener('click', function(e) {
-        e.stopPropagation();
-        notificationDropdown.classList.toggle('hidden');
-        
-        if (!notificationDropdown.classList.contains('hidden')) {
-          // تعليم الإشعارات كمقروءة عند الفتح
-          notifications.forEach(notification => {
-            notification.isRead = true;
-          });
-          localStorage.setItem('notifications', JSON.stringify(notifications));
-          updateNotificationBadge();
-        }
-      });
-      
-      document.addEventListener('click', function() {
-        notificationDropdown.classList.add('hidden');
-      });
-      
-      markAllRead.addEventListener('click', function() {
-        notifications.forEach(notification => {
-          notification.isRead = true;
-        });
-        localStorage.setItem('notifications', JSON.stringify(notifications));
-        updateNotificationList();
-        updateNotificationBadge();
-      }); 
+      addNotification(`أضاف ${teacher.name} ${randomMaterial}`, 'مادة جديدة');
+    }
+  }, 15000); // كل 15 ثانية
+}
+
+// Search and Filter Functionality
+const teacherSearch = document.getElementById('teacherSearch');
+const subjectFilter = document.getElementById('subjectFilter');
+const levelFilter = document.getElementById('levelFilter');
+const middleTeachersContainer = document.getElementById('middleTeachersContainer');
+const highTeachersContainer = document.getElementById('highTeachersContainer');
+const middleSchoolSection = document.getElementById('middle-school-teachers');
+const highSchoolSection = document.getElementById('high-school-teachers');
+
+// Function to filter teachers
+function filterTeachers() {
+  const searchTerm = teacherSearch.value.toLowerCase();
+  const selectedSubject = subjectFilter.value;
+  const selectedLevel = levelFilter.value;
+  
+  // Filter middle school teachers
+  const middleTeachers = middleTeachersContainer.querySelectorAll('.teacher-card');
+  let middleVisible = false;
+  
+  middleTeachers.forEach(teacher => {
+    const teacherName = teacher.querySelector('h3').textContent.toLowerCase();
+    const teacherSubject = teacher.dataset.subject;
+    const teacherLevel = teacher.dataset.level;
+    
+    const nameMatch = teacherName.includes(searchTerm);
+    const subjectMatch = selectedSubject === 'all' || teacherSubject === selectedSubject;
+    const levelMatch = selectedLevel === 'all' || teacherLevel === selectedLevel;
+    
+    if (nameMatch && subjectMatch && levelMatch) {
+      teacher.style.display = 'block';
+      middleVisible = true;
+    } else {
+      teacher.style.display = 'none';
+    }
+  });
+  
+  // Show/hide middle school section based on visibility
+  middleSchoolSection.style.display = middleVisible ? 'block' : 'none';
+  
+  // Filter high school teachers
+  const highTeachers = highTeachersContainer.querySelectorAll('.teacher-card');
+  let highVisible = false;
+  
+  highTeachers.forEach(teacher => {
+    const teacherName = teacher.querySelector('h3').textContent.toLowerCase();
+    const teacherSubject = teacher.dataset.subject;
+    const teacherLevel = teacher.dataset.level;
+    
+    const nameMatch = teacherName.includes(searchTerm);
+    const subjectMatch = selectedSubject === 'all' || teacherSubject === selectedSubject;
+    const levelMatch = selectedLevel === 'all' || teacherLevel === selectedLevel;
+    
+    if (nameMatch && subjectMatch && levelMatch) {
+      teacher.style.display = 'block';
+      highVisible = true;
+    } else {
+      teacher.style.display = 'none';
+    }
+  });
+  
+  // Show/hide high school section based on visibility
+  highSchoolSection.style.display = highVisible ? 'block' : 'none';
+  
+  // Special handling for level filter
+  if (selectedLevel === 'middle') {
+    highSchoolSection.style.display = 'none';
+    middleSchoolSection.style.display = middleVisible ? 'block' : 'none';
+  } else if (selectedLevel === 'high') {
+    middleSchoolSection.style.display = 'none';
+    highSchoolSection.style.display = highVisible ? 'block' : 'none';
+  }
+}
+
+// Event listeners for filters
+teacherSearch.addEventListener('input', filterTeachers);
+subjectFilter.addEventListener('change', filterTeachers);
+levelFilter.addEventListener('change', filterTeachers);
+
+// تهيئة النظام
+updateFollowButtons();
+updateNotificationList();
+updateNotificationBadge();
+simulateTeacherActivity();
+
+// تفاعلات واجهة الإشعارات
+notificationBell.addEventListener('click', function(e) {
+  e.stopPropagation();
+  notificationDropdown.classList.toggle('hidden');
+  
+  if (!notificationDropdown.classList.contains('hidden')) {
+    // تعليم الإشعارات كمقروءة عند الفتح
+    notifications.forEach(notification => {
+      notification.isRead = true;
     });
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+    updateNotificationBadge();
+  }
+});
+
+document.addEventListener('click', function() {
+  notificationDropdown.classList.add('hidden');
+});
+
+markAllRead.addEventListener('click', function() {
+  notifications.forEach(notification => {
+    notification.isRead = true;
+  });
+  localStorage.setItem('notifications', JSON.stringify(notifications));
+  updateNotificationList();
+  updateNotificationBadge();
+});
   </script> 
 </body>
 </html>
