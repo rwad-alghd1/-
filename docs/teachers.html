@@ -493,7 +493,20 @@ if (markAllRead) {
     updateNotificationBadge();
   });
       }
-      
+       // محاكاة إضافة مواد من الأساتذة (للتجربة فقط)
+      function simulateTeacherActivity() {
+        setInterval(() => {
+          const randomTeacherId = Math.floor(Math.random() * 10) + 1;
+          const teacher = teachers[randomTeacherId.toString()];
+          
+          if (teacher && currentUser.following.includes(randomTeacherId.toString())) {
+            const materials = ['ملف جديد', 'رابط محاضرة', 'واجب منزلي', 'ملخص الدرس'];
+            const randomMaterial = materials[Math.floor(Math.random() * materials.length)];
+            
+            addNotification(`أضاف  ${teacher.name} ${randomMaterial}`, 'مادة جديدة');
+          }
+        }, 15000000); // كل 1500000 ثانية
+      } 
       // Search and Filter Functionality
       const teacherSearch = document.getElementById('teacherSearch');
       const subjectFilter = document.getElementById('subjectFilter');
