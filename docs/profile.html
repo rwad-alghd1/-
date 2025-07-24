@@ -125,13 +125,8 @@
     </div>
 
     <div class="bg-white rounded-lg shadow-sm p-6 md:p-8">
-      <form id="profile-form" action="https://formsubmit.co/el/sakedo" method="POST">
+      <form id="profile-form">
         <input type="hidden" name="_language" value="ar">
-        <input type="hidden" name="_subject" value="تسجيل جديد في منصة الدراسة">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://rwad-alghd1.github.io/-/index.html">
-        <input type="hidden" name="_autoresponse" value="مرحبًا بك في منصة الدراسة! شكرًا لتسجيلك معنا. سنقوم بالتواصل معك قريبًا.">
-        <input type="hidden" name="_captcha" value="false">
         
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           <div>
@@ -249,8 +244,8 @@
         </div>
         
         <div class="flex justify-center items-center">
-          <button type="submit" id="submit-btn" class="bg-[#E6D88B] hover:bg-[#d4c77d] text-[#0B0D23] px-6 py-2 rounded-md font-medium text-sm transition-colors flex items-center">
-            <span id="submit-text">حفظ التغييرات</span>
+          <button type="submit" id="submit-btn" class="bg-gray-300 text-gray-500 px-6 py-2 rounded-md font-medium text-sm transition-colors flex items-center cursor-not-allowed" disabled>
+            <span id="submit-text">غير متاح حالياً</span>
             <div id="submit-spinner" class="loader"></div>
           </button>
         </div>
@@ -354,61 +349,16 @@
         document.getElementById('assignment-notifications').checked = savedProfile.notifications?.assignments !== false;
       }
       
-      // Form submission
-      profileForm.addEventListener('submit', async function(e) {
+      // Make button permanently disabled
+      submitBtn.disabled = true;
+      submitBtn.classList.remove('bg-[#E6D88B]', 'hover:bg-[#d4c77d]', 'text-[#0B0D23]');
+      submitBtn.classList.add('bg-gray-300', 'text-gray-500', 'cursor-not-allowed');
+      submitText.textContent = 'غير متاح حالياً';
+      
+      // Disable form submission
+      profileForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        
-        // Disable button and show spinner
-        submitBtn.disabled = true;
-        submitText.textContent = 'جاري الحفظ...';
-        spinner.style.display = 'inline-block';
-        
-        try {
-          // Get form values
-          const profileData = {
-            isRegistered: true,
-            firstName: document.getElementById('first-name').value,
-            lastName: document.getElementById('last-name').value,
-            email: document.getElementById('email').value,
-            phone: document.getElementById('phone').value || '',
-            level: document.getElementById('level').value,
-            subjects: Array.from(document.querySelectorAll('input[name="subjects[]"]:checked')).map(el => el.value),
-            notifications: {
-              email: document.getElementById('email-notifications').checked,
-              live: document.getElementById('live-notifications').checked,
-              assignments: document.getElementById('assignment-notifications').checked
-            },
-            lastUpdated: new Date().toISOString()
-          };
-          
-          // Validate required fields
-          if (!profileData.firstName || !profileData.lastName || !profileData.email || !profileData.level) {
-            throw new Error('الرجاء ملء جميع الحقول المطلوبة');
-          }
-          
-          // Validate email format
-          if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(profileData.email)) {
-            throw new Error('البريد الإلكتروني غير صالح');
-          }
-          
-          // Save to localStorage
-          localStorage.setItem('userProfile', JSON.stringify(profileData));
-          
-          // Submit the form to FormSubmit
-          profileForm.submit();
-          
-          // Show success message
-          showStatusMessage('تم تحديث معلومات حسابك بنجاح', 'success');
-          
-        } catch (error) {
-          console.error('Error:', error);
-          showStatusMessage(error.message || 'حدث خطأ غير متوقع', 'error');
-        } finally {
-          // Re-enable button and hide spinner
-          submitBtn.disabled = false;
-          submitText.textContent = 'حفظ التغييرات';
-          spinner.style.display = 'none';
-        }
+        return false;
       });
       
       // Function to show status message
