@@ -350,131 +350,148 @@
         }
       });
 
-      // نظام المتابعة والإشعارات
-      const notificationBell = document.getElementById('notificationBell');
-      const notificationBadge = document.getElementById('notificationBadge');
-      const notificationDropdown = document.getElementById('notificationDropdown');
-      const notificationList = document.getElementById('notificationList');
-      const markAllRead = document.getElementById('markAllRead');
-      const followButtons = document.querySelectorAll('.follow-button');
+    // نظام المتابعة والإشعارات
+const notificationBell = document.getElementById('notificationBell');
+const notificationBadge = document.getElementById('notificationBadge');
+const notificationDropdown = document.getElementById('notificationDropdown');
+const notificationList = document.getElementById('notificationList');
+const markAllRead = document.getElementById('markAllRead');
+const followButtons = document.querySelectorAll('.follow-button');
+
+// تخزين محلي للمستخدم والمتابعات
+let currentUser = {
+  id: 'user_' + Math.random().toString(36).substr(2, 9),
+  name: 'مستخدم جديد',
+  following: JSON.parse(localStorage.getItem('following')) || []
+};
+
+// تخزين محلي للأساتذة وموادهم
+let teachers = {
+  '1': { name: 'بن عالية عبد الرؤوف' },
+  '2': { name: 'بحير محمد' },
+  '3': { name: 'عماني إبراهيم' },
+  '4': { name: 'حمودة' },
+  '5': { name: 'سحنون' },
+  '6': { name: 'محمد صلاح' },
+  '7': { name: 'بوقطوف سيف الدين' },
+  '8': { name: 'بلغيث أيمن' },
+  '9': { name: 'فركوس' },
+  '10': { name: 'معمري عطا الله' }
+};
+
+// تحديث حالة أزرار المتابعة
+function updateFollowButtons() {
+  followButtons.forEach(button => {
+    const teacherId = button.dataset.teacherId;
+    if (currentUser.following.includes(teacherId)) {
+      button.textContent = 'متابع';
+      button.classList.add('bg-green-500', 'text-white');
+      button.classList.remove('bg-[#E6D88B]', 'text-[#0B0D23]');
+    } else {
+      button.textContent = 'متابعة';
+      button.classList.remove('bg-green-500', 'text-white');
+      button.classList.add('bg-[#E6D88B]', 'text-[#0B0D23]');
+    }
+  });
+}
+
+// نظام المتابعة
+followButtons.forEach(button => {
+  button.addEventListener('click', function() {
+    const teacherId = this.dataset.teacherId;
+    
+    if (currentUser.following.includes(teacherId)) {
+      // إلغاء المتابعة
+      currentUser.following = currentUser.following.filter(id => id !== teacherId);
+    } else {
+      // متابعة جديدة
+      currentUser.following.push(teacherId);
       
-      // تخزين محلي للمستخدم والمتابعات
-      let currentUser = {
-        id: 'user_' + Math.random().toString(36).substr(2, 9),
-        name: 'مستخدم جديد',
-        following: JSON.parse(localStorage.getItem('following')) || []
-      };
-      
-      // تخزين محلي للأساتذة وموادهم
-      let teachers = {
-        '1': { name: 'بن عالية عبد الرؤوف' },
-        '2': { name: 'بحير محمد' },
-        '3': { name: 'عماني إبراهيم' },
-        '4': { name: 'حمودة' },
-        '5': { name: 'سحنون' },
-        '6': { name: 'محمد صلاح' },
-        '7': { name: 'بوقطوف سيف الدين' },
-        '8': { name: 'بلغيث أيمن' },
-        '9': { name: 'ة فركوس' },
-        '10': { name: 'معمري عطا الله' }
-      };
-      
-      // تحديث حالة أزرار المتابعة
-      function updateFollowButtons() {
-        followButtons.forEach(button => {
-          const teacherId = button.dataset.teacherId;
-          if (currentUser.following.includes(teacherId)) {
-            button.textContent = 'متابع';
-            button.classList.add('bg-green-500', 'text-white');
-            button.classList.remove('bg-[#E6D88B]', 'text-[#0B0D23]');
-          } else {
-            button.textContent = 'متابعة';
-            button.classList.remove('bg-green-500', 'text-white');
-            button.classList.add('bg-[#E6D88B]', 'text-[#0B0D23]');
-          }
-        });
-      }
-      
-      // نظام المتابعة
-      followButtons.forEach(button => {
-        button.addEventListener('click', function() {
-          const teacherId = this.dataset.teacherId;
-          
-          if (currentUser.following.includes(teacherId)) {
-            // إلغاء المتابعة
-            currentUser.following = currentUser.following.filter(id => id !== teacherId);
-          } else {
-            // متابعة جديدة
-            currentUser.following.push(teacherId);
-            
-            // إشعار للمستخدم
-            addNotification(`بدأت متابعة الأستاذ ${teachers[teacherId].name}`, 'متابعة جديدة');
-          }
-          
-          // حفظ في localStorage
-          localStorage.setItem('following', JSON.stringify(currentUser.following));
-          updateFollowButtons();
-        });
-      });
-      
-      // نظام الإشعارات
-      let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
-      
-      function addNotification(message, type) {
-        const newNotification = {
-          id: Date.now(),
-          message: message,
-          type: type,
-          isRead: false,
-          date: new Date().toLocaleTimeString()
-        };
-        
-        notifications.unshift(newNotification);
-        localStorage.setItem('notifications', JSON.stringify(notifications));
-        updateNotificationBadge();
-        updateNotificationList();
-      }
-      
-      function updateNotificationList() {
-        notificationList.innerHTML = '';
-        
-        if (notifications.length === 0) {
-          notificationList.innerHTML = '<div class="p-4 text-center text-sm text-gray-500">لا توجد إشعارات لعرضها</div>';
-          return;
-        }
-        
-        notifications.forEach(notification => {
-          const notificationItem = document.createElement('div');
-          notificationItem.className = `p-4 border-b border-gray-100 text-sm notification-item ${!notification.isRead ? 'unread' : ''}`;
-          
-          notificationItem.innerHTML = `
-            <div class="flex justify-between items-start mb-1">
-              <strong class="text-[#E6D88B]">${notification.type}</strong>
-              <span class="text-xs text-gray-500">${notification.date}</span>
-            </div>
-            <p>${notification.message}</p>
-          `;
-          
-          notificationItem.addEventListener('click', function() {
-            notification.isRead = true;
-            localStorage.setItem('notifications', JSON.stringify(notifications));
-            this.classList.remove('unread');
-            updateNotificationBadge();
-          });
-          
-          notificationList.appendChild(notificationItem);
-        });
-      }
-      
-      function updateNotificationBadge() {
-        const unreadCount = notifications.filter(n => !n.isRead).length;
-        
-        if (unreadCount > 0) {
-          notificationBadge.classList.remove('hidden');
-          notificationBadge.textContent = unreadCount;
-        } else {
-          notificationBadge.classList.add('hidden');
-        }
+      // إشعار للمستخدم
+      addNotification(`بدأت متابعة ${teachers[teacherId].name}`, 'متابعة جديدة');
+    }
+    
+    // حفظ في localStorage
+    localStorage.setItem('following', JSON.stringify(currentUser.following));
+    updateFollowButtons();
+  });
+});
+
+// نظام الإشعارات
+let notifications = JSON.parse(localStorage.getItem('notifications')) || [];
+
+function addNotification(message, type) {
+  const newNotification = {
+    id: Date.now(),
+    message: message,
+    type: type,
+    isRead: false,
+    date: new Date().toLocaleTimeString()
+  };
+  
+  notifications.unshift(newNotification);
+  localStorage.setItem('notifications', JSON.stringify(notifications));
+  updateNotificationBadge();
+  updateNotificationList();
+}
+
+function updateNotificationList() {
+  notificationList.innerHTML = '';
+  
+  if (notifications.length === 0) {
+    notificationList.innerHTML = '<div class="p-4 text-center text-sm text-gray-500">لا توجد إشعارات لعرضها</div>';
+    return;
+  }
+  
+  notifications.forEach(notification => {
+    const notificationItem = document.createElement('div');
+    notificationItem.className = `p-4 border-b border-gray-100 text-sm notification-item ${!notification.isRead ? 'unread' : ''}`;
+    
+    notificationItem.innerHTML = `
+      <div class="flex justify-between items-start mb-1">
+        <strong class="text-[#E6D88B]">${notification.type}</strong>
+        <span class="text-xs text-gray-500">${notification.date}</span>
+      </div>
+      <p>${notification.message}</p>
+    `;
+    
+    notificationItem.addEventListener('click', function() {
+      notification.isRead = true;
+      localStorage.setItem('notifications', JSON.stringify(notifications));
+      this.classList.remove('unread');
+      updateNotificationBadge();
+    });
+    
+    notificationList.appendChild(notificationItem);
+  });
+}
+
+function updateNotificationBadge() {
+  const unreadCount = notifications.filter(n => !n.isRead).length;
+  
+  if (unreadCount > 0) {
+    notificationBadge.classList.remove('hidden');
+    notificationBadge.textContent = unreadCount;
+  } else {
+    notificationBadge.classList.add('hidden');
+  }
+}
+
+// تحديث الواجهة عند التحميل
+updateFollowButtons();
+updateNotificationList();
+updateNotificationBadge();
+
+// زر تحديد الكل كمقروء
+if (markAllRead) {
+  markAllRead.addEventListener('click', function() {
+    notifications.forEach(notification => {
+      notification.isRead = true;
+    });
+    localStorage.setItem('notifications', JSON.stringify(notifications));
+    updateNotificationList();
+    updateNotificationBadge();
+  });
       }
       
       // محاكاة إضافة مواد من الأساتذة (للتجربة فقط)
