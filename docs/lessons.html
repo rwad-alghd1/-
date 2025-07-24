@@ -54,6 +54,20 @@
     .dropdown-content {
       display: none;
     }
+    .level-button {
+      width: 100%;
+      text-align: right;
+      padding: 0.5rem 1rem;
+      background-color: #f8f9fa;
+      border-bottom: 1px solid #e5e7eb;
+    }
+    .level-button:hover {
+      background-color: #f1f5f9;
+    }
+    .level-content {
+      padding: 0.5rem 1rem;
+      display: none;
+    }
   </style>
 </head>
 <body class="bg-gray-50 text-[#0B0D23]">
@@ -173,44 +187,35 @@
         
         <div id="teacher1" class="dropdown-content bg-gray-50">
           <div class="p-4 border-t border-gray-200">
-            <h4 class="font-medium mb-3 text-[#E6D88B]">الدروس المسجلة</h4>
             
-            <div class="space-y-2">
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>درس الجبر - المعادلات من الدرجة الأولى</span>
-                  <span class="text-xs text-gray-500">12/07/2025</span>
-                </div>
-              </a>
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>درس الهندسة - نظرية فيثاغورس</span>
-                  <span class="text-xs text-gray-500">05/07/2025</span>
-                </div>
-              </a>
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>تمرين تطبيقي - حساب المساحات</span>
-                  <span class="text-xs text-gray-500">28/06/2025</span>
-                </div>
-              </a>
-            </div>
-            
-            <h4 class="font-medium mb-3 mt-4 text-[#E6D88B]">التمارين والاختبارات</h4>
-            
-            <div class="space-y-2">
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>اختبار الفصل الأول - النموذج 1</span>
-                  <span class="text-xs text-gray-500">20/06/2025</span>
-                </div>
-              </a>
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>سلسلة تمارين في الجبر</span>
-                  <span class="text-xs text-gray-500">15/06/2025</span>
-                </div>
-              </a>
+            <!-- Middle School Levels -->
+            <button class="level-button" onclick="toggleLevel('middle1')">
+              <i class="fas fa-chevron-down mr-2"></i>المتوسط
+            </button>
+            <div id="middle1" class="level-content">
+              <button class="level-button" onclick="toggleLevel('middle1-1')">السنة الأولى متوسط</button>
+              <div id="middle1-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الجبر الأساسي</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الهندسة المستوية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-2')">السنة الثانية متوسط</button>
+              <div id="middle1-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس المعادلات الخطية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس نظرية فيثاغورس</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-3')">السنة الثالثة متوسط</button>
+              <div id="middle1-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الدوال الخطية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس التحليل الإحصائي</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-4')">السنة الرابعة متوسط</button>
+              <div id="middle1-4" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس المعادلات التربيعية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الهندسة التحليلية</a>
+              </div>
             </div>
           </div>
         </div>
@@ -232,38 +237,28 @@
         
         <div id="teacher2" class="dropdown-content bg-gray-50">
           <div class="p-4 border-t border-gray-200">
-            <h4 class="font-medium mb-3 text-[#E6D88B]">الدروس المسجلة</h4>
             
-            <div class="space-y-2">
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>درس الإحصاء والاحتمالات</span>
-                  <span class="text-xs text-gray-500">10/07/2025</span>
-                </div>
-              </a>
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>حل المعادلات التربيعية</span>
-                  <span class="text-xs text-gray-500">03/07/2025</span>
-                </div>
-              </a>
-            </div>
-            
-            <h4 class="font-medium mb-3 mt-4 text-[#E6D88B]">التمارين والاختبارات</h4>
-            
-            <div class="space-y-2">
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>اختبار الفصل الأول - النموذج 2</span>
-                  <span class="text-xs text-gray-500">22/06/2025</span>
-                </div>
-              </a>
-              <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">
-                <div class="flex justify-between items-center">
-                  <span>تمارين في الهندسة الفضائية</span>
-                  <span class="text-xs text-gray-500">18/06/2025</span>
-                </div>
-              </a>
+            <!-- Secondary School Levels -->
+            <button class="level-button" onclick="toggleLevel('secondary2')">
+              <i class="fas fa-chevron-down mr-2"></i>الثانوي
+            </button>
+            <div id="secondary2" class="level-content">
+              <button class="level-button" onclick="toggleLevel('secondary2-1')">السنة الأولى ثانوي</button>
+              <div id="secondary2-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الإحصاء والاحتمالات</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس حل المعادلات التربيعية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary2-2')">السنة الثانية ثانوي</button>
+              <div id="secondary2-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الدوال الأسية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس اللوغاريتمات</a>
+              </div>
+               <button class="level-button" onclick="toggleLevel('secondary2-3')">السنة الثالثة ثانوي</button>
+              <div id="secondary2-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الدوال </a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس اللوغاريتم</a>
+              </div>
             </div>
           </div>
         </div>
@@ -290,7 +285,24 @@
         
         <div id="teacher3" class="dropdown-content bg-gray-50">
           <div class="p-4 border-t border-gray-200">
-            <h4 class="font-medium mb-3 text-[#E6D88B]"> ملخصات و مخططات </h4>
+            <!-- Secondary School Levels -->
+            <button class="level-button" onclick="toggleLevel('secondary3')">
+              <i class="fas fa-chevron-down mr-2"></i>الثانوي
+            </button>
+            <div id="secondary3" class="level-content">
+              <button class="level-button" onclick="toggleLevel('secondary3-1')">السنة الأولى ثانوي</button>
+              <div id="secondary3-1" class="level-content">
+                <a href="https://www.facebook.com/100094722203183/posts/pfbid0NpunEWbLtuRcoqizGLFWT44mhmPvUyswaALXGCb7o9FvPit91CPM4u9aQzUxPv9tl/" class="lesson-item block p-2 hover:bg-white rounded-md">ملخص الوحدة الأولى آليات تركيب البروتين</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary3-2')">السنة الثانية ثانوي</button>
+              <div id="secondary3-2" class="level-content">
+                <a href="https://www.facebook.com/100094722203183/posts/pfbid0yuH17oo6ZkYt4q7LxA8vvMN34wNJ9mdwbM5XJZxYSAuZh12EMxrAPE2bdL5TF2Vul/" class="lesson-item block p-2 hover:bg-white rounded-md">ملخص للوحدة الثانية العلاقة بين البنية والوظيفة</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary3-3')">السنة الثالثة ثانوي</button>
+              <div id="secondary3-3" class="level-content">
+               <h4 class="font-medium mb-3 text-[#E6D88B]"> ملخصات و مخططات </h4>
             
             <div class="space-y-2">
               <a href="https://www.facebook.com/100094722203183/posts/pfbid0NpunEWbLtuRcoqizGLFWT44mhmPvUyswaALXGCb7o9FvPit91CPM4u9aQzUxPv9tl/" class="lesson-item block p-2 hover:bg-white rounded-md">
@@ -358,51 +370,114 @@
                   <span class="text-xs text-gray-500">02/11/2024</span>
                 </div>
               </a>
-              
+              </div>
+            </div>
+            
+            <h4 class="font-medium mb-3 mt-4 text-[#E6D88B]">تمارين و اختبارات</h4>
+            
+            <div class="space-y-2">
+              <a href="https://www.facebook.com/share/p/159hVzoPeS/" class="lesson-item block p-2 hover:bg-white rounded-md">تطبيق منهجية الإجابة بكالوريا 2020</a>
+              <a href="https://www.facebook.com/100094722203183/posts/pfbid023XPxCWGNuYuRA6jNbhcD5uKcFJuVF3nD9KB127tBSKVtmSpBsGkUSu1pGHkyBCbml/" class="lesson-item block p-2 hover:bg-white rounded-md">تطبيق لوحدة العلاقة بين البنية والوظيفة (باكالوريا 2018-2023)</a>
+            </div>
           </div>
         </div>
       </div>
-        <!-- New Teacher -->
-    <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بحير محمد">
+      
+      <!-- Teacher 4 -->
+      
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بحير محمد">
         <button onclick="toggleDropdown('teacher4')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
-            <div class="flex items-center">
-                <img src="https://scontent.faae2-3.fna.fbcdn.net/v/t39.30808-1/473374911_122230899680078477_4856888749802971854_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeF09cinQus9vJTyZixxedAn07doG8vUJvrTt2gby9Qm-uMOh-M92T0ajxkvrvv_3B-AlUCqhdrccDZSDJJKD0hJ&_nc_ohc=Z1Ry0dTOxnYQ7kNvwEVtVCH&_nc_oc=Adl6v8eiWeUZMb8h9Q0QIdRbB9FVc1V0jpm6DmxYh0mdhT_AG-wjdLX75vAIpUuM9hI&_nc_zt=24&_nc_ht=scontent.faae2-3.fna&_nc_gid=6t2JqDARKLZIUXFpfxXk6Q&oh=00_AfR7NsrW42WPSbEv5Q-ynNQtsnaSa4hc_t8_RrN4BBwacw&oe=688472E2" alt="الأستاذ بحير محمد" class="w-10 h-10 rounded-full mr-3">
-                <div class="text-right">
-                    <h3 class="font-semibold">الأستاذ بحير محمد</h3>
-                    <p class="text-xs text-gray-500">أستاذ علوم الطبيعية والحياة</p>
-                </div>
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-3.fna.fbcdn.net/v/t39.30808-1/473374911_122230899680078477_4856888749802971854_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeF09cinQus9vJTyZixxedAn07doG8vUJvrTt2gby9Qm-uMOh-M92T0ajxkvrvv_3B-AlUCqhdrccDZSDJJKD0hJ&_nc_ohc=Z1Ry0dTOxnYQ7kNvwEVtVCH&_nc_oc=Adl6v8eiWeUZMb8h9Q0QIdRbB9FVc1V0jpm6DmxYh0mdhT_AG-wjdLX75vAIpUuM9hI&_nc_zt=24&_nc_ht=scontent.faae2-3.fna&_nc_gid=6t2JqDARKLZIUXFpfxXk6Q&oh=00_AfR7NsrW42WPSbEv5Q-ynNQtsnaSa4hc_t8_RrN4BBwacw&oe=688472E2" alt="الأستاذ بحير محمد" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">الأستاذ بحير محمد</h3>
+              <p class="text-xs text-gray-500">أستاذ علوم الطبيعية والحياة</p>
             </div>
-            <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher4-arrow"></i>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher4-arrow"></i>
+        </button>
+        
+        <div id="teacher4" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">
+            
+            <!-- Middle School Levels -->
+            <button class="level-button" onclick="toggleLevel('middle1')">
+              <i class="fas fa-chevron-down mr-2"></i>المتوسط
+            </button>
+            <div id="middle1" class="level-content">
+              <button class="level-button" onclick="toggleLevel('middle1-1')">السنة الأولى متوسط</button>
+              <div id="middle1-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الجبر الأساسي</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الهندسة المستوية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-2')">السنة الثانية متوسط</button>
+              <div id="middle1-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس المعادلات الخطية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس نظرية فيثاغورس</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-3')">السنة الثالثة متوسط</button>
+              <div id="middle1-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الدوال الخطية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس التحليل الإحصائي</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle1-4')">السنة الرابعة متوسط</button>
+              <div id="middle1-4" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس المعادلات التربيعية</a>
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الهندسة التحليلية</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- قسم العلوم الفيزيائية -->
+    <section class="mb-12 teacher-section" data-subject="العلوم الفيزيائية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة العلوم الفيزيائية</h2>
+      
+      <!-- Teacher 5 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بلغيث أيمن">
+        <button onclick="toggleDropdown('teacher5')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-4.fna.fbcdn.net/v/t39.30808-1/454522104_1044115604380271_6556844833519031275_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeEtO85VrVIKgJn4aYskd8JqjiNLTuWTWIyOI0tO5ZNYjMGJKFRHIQQ6sMgtOzb2l543FIBdwszH0D6v3tKMGjEc&_nc_ohc=804VgisiJCQQ7kNvwGvb6sD&_nc_oc=AdkiCYZ1LlbIpO0XGGtQ-ZRxYiIymiJGi5Vk6lR8cUGEUyrl58rHdtkgylCi1yG-4SY&_nc_zt=24&_nc_ht=scontent.faae2-4.fna&_nc_gid=_wvrYc4aZxPCW2HDUF4IUg&oh=00_AfSKvaAJumqHjQa8rdQAUxFvHTuSnRRZuuHloNxE-gKMSQ&oe=68848E40" 
+               alt="الأستاذ بلغيث أيمن" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">الأستاذ بلغيث أيمن</h3>
+              <p class="text-xs text-gray-500">أستاذ علوم فيزيائية</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher5-arrow"></i>
         </button>
         
         <div id="teacher5" class="dropdown-content bg-gray-50">
-            <!-- Lesson content here -->
-        </div>
-    </div>
-     </section>
-<!-- قسم العلوم الفيزيائية المعدل -->
-<section class="mb-12 teacher-section" data-subject="العلوم الفيزيائية">
-  <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة العلوم الفيزيائية</h2>
-  
-  <!-- Teacher 5 -->
-  <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بلغيث أيمن">
-    <button onclick="toggleDropdown('teacher5')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
-      <div class="flex items-center">
-        <img src="https://scontent.faae2-4.fna.fbcdn.net/v/t39.30808-1/454522104_1044115604380271_6556844833519031275_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=104&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeEtO85VrVIKgJn4aYskd8JqjiNLTuWTWIyOI0tO5ZNYjMGJKFRHIQQ6sMgtOzb2l543FIBdwszH0D6v3tKMGjEc&_nc_ohc=804VgisiJCQQ7kNvwGvb6sD&_nc_oc=AdkiCYZ1LlbIpO0XGGtQ-ZRxYiIymiJGi5Vk6lR8cUGEUyrl58rHdtkgylCi1yG-4SY&_nc_zt=24&_nc_ht=scontent.faae2-4.fna&_nc_gid=_wvrYc4aZxPCW2HDUF4IUg&oh=00_AfSKvaAJumqHjQa8rdQAUxFvHTuSnRRZuuHloNxE-gKMSQ&oe=68848E40" 
-             alt="الأستاذ بلغيث أيمن" class="w-10 h-10 rounded-full mr-3">
-        <div class="text-right">
-          <h3 class="font-semibold">الأستاذ بلغيث أيمن</h3>
-          <p class="text-xs text-gray-500">أستاذ علوم فيزيائية</p>
+          <div class="p-4 border-t border-gray-200">   
+            <!-- Secondary School Levels -->
+            <button class="level-button" onclick="toggleLevel('secondary5')">
+              <i class="fas fa-chevron-down mr-2"></i>الثانوي
+            </button>
+            <div id="secondary5" class="level-content">
+              <button class="level-button" onclick="toggleLevel('secondary5-1')">السنة الأولى ثانوي</button>
+              <div id="secondary5-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الميكانيكا الأساسية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary5-2')">السنة الثانية ثانوي</button>
+              <div id="secondary5-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الكهرومغناطيسية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary5-3')">السنة الثالثة ثانوي</button>
+              <div id="secondary5-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الفيزياء النووية</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher5-arrow"></i>
-    </button>
-      
-    <div id="teacher4" class="dropdown-content bg-gray-50">
-      <!-- محتوى الدروس هنا -->
-    </div>
-  </div>
-</section>
+    </section>
     
     <section class="mb-12 teacher-section hidden-section" data-subject="اللغة العربية">
       <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة العربية</h2>
@@ -414,24 +489,48 @@
     
     <section class="mb-12 teacher-section" data-subject="اللغة الإنجليزية">
       <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة الإنجليزية</h2>
-        <!-- Teacher 6 -->
-  <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="فركوس">
-    <button onclick="toggleDropdown('teacher6')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
-      <div class="flex items-center">
-        <img src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/518374085_122221605068278308_2566152190259308458_n.jpg?stp=c0.0.867.867a_dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeFrJZLyhzPuP_NNmQ83RAZfpooM3_TjkMqmigzf9OOQyhcHXtkUKjbU3muDSwxKxR3WB1LK1j4-FnykmvSs89aJ&_nc_ohc=tW-HqDii-BgQ7kNvwEV9WVx&_nc_oc=AdlPqZcnuiovhh3udxOPBMPOfCc6jwqMOp3mlWXSNWnoIlbNa0Y_fF1pBj4virOljaM&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=6rD6gp_E42qrayXF5OYX7A&oh=00_AfRtSrHRr2EuybbCngSdKXbA1a2JAu2xcs6bOsqRWxFfrQ&oe=6887FFD2" 
-             alt="الأستاذ فركوس" class="w-10 h-10 rounded-full mr-3">
-        <div class="text-right">
-          <h3 class="font-semibold">الأستاذة فركوس</h3>
-          <p class="text-xs text-gray-500">أستاذة إنجليزية</p>
+      <!-- Teacher 6 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="فركوس">
+        <button onclick="toggleDropdown('teacher6')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/518374085_122221605068278308_2566152190259308458_n.jpg?stp=c0.0.867.867a_dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeFrJZLyhzPuP_NNmQ83RAZfpooM3_TjkMqmigzf9OOQyhcHXtkUKjbU3muDSwxKxR3WB1LK1j4-FnykmvSs89aJ&_nc_ohc=tW-HqDii-BgQ7kNvwEV9WVx&_nc_oc=AdlPqZcnuiovhh3udxOPBMPOfCc6jwqMOp3mlWXSNWnoIlbNa0Y_fF1pBj4virOljaM&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=6rD6gp_E42qrayXF5OYX7A&oh=00_AfRtSrHRr2EuybbCngSdKXbA1a2JAu2xcs6bOsqRWxFfrQ&oe=6887FFD2" 
+               alt="الأستاذ فركوس" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">الأستاذة فركوس</h3>
+              <p class="text-xs text-gray-500">أستاذة إنجليزية</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher6-arrow"></i>
+        </button>
+        
+        <div id="teacher6" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">
+            <!-- Middle School Levels -->
+            <button class="level-button" onclick="toggleLevel('middle6')">
+              <i class="fas fa-chevron-down mr-2"></i>المتوسط
+            </button>
+            <div id="middle6" class="level-content">
+              <button class="level-button" onclick="toggleLevel('middle6-1')">السنة الأولى متوسط</button>
+              <div id="middle6-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس أساسيات اللغة الإنجليزية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('middle6-2')">السنة الثانية متوسط</button>
+              <div id="middle6-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
+              </div>
+               <button class="level-button" onclick="toggleLevel('middle6-3')">السنة الثالثة متوسط</button>
+              <div id="middle6-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
+              </div>
+               <button class="level-button" onclick="toggleLevel('middle6-4')">السنة الرابعة متوسط</button>
+              <div id="middle6-4" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-      <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher6-arrow"></i>
-    </button>
-      
-    <div id="teacher6" class="dropdown-content bg-gray-50">
-      <!-- محتوى الدروس هنا -->
-    </div>
-  </div>
     </section>
   </main>
   
@@ -513,6 +612,22 @@
       }
     }
 
+    // Toggle level content function
+    function toggleLevel(levelId) {
+      const levelContent = document.getElementById(levelId);
+      const arrow = event.currentTarget.querySelector('i');
+      
+      if (levelContent.style.display === 'block') {
+        levelContent.style.display = 'none';
+        arrow.classList.remove('fa-chevron-up');
+        arrow.classList.add('fa-chevron-down');
+      } else {
+        levelContent.style.display = 'block';
+        arrow.classList.remove('fa-chevron-down');
+        arrow.classList.add('fa-chevron-up');
+      }
+    }
+
     // Close dropdowns when clicking outside
     document.addEventListener('click', function(event) {
       if (!event.target.closest('.teacher-card')) {
@@ -525,6 +640,21 @@
         
         arrows.forEach(arrow => {
           arrow.classList.remove('transform', 'rotate-180');
+        });
+      }
+      
+      // Close level contents when clicking outside
+      if (!event.target.closest('.level-button')) {
+        const levelContents = document.querySelectorAll('.level-content');
+        const levelArrows = document.querySelectorAll('.level-button i');
+        
+        levelContents.forEach(content => {
+          content.style.display = 'none';
+        });
+        
+        levelArrows.forEach(arrow => {
+          arrow.classList.remove('fa-chevron-up');
+          arrow.classList.add('fa-chevron-down');
         });
       }
     });
