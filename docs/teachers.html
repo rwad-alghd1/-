@@ -197,6 +197,23 @@
             متابعة
           </button>
         </article>
+            <!-- Teacher 3 -->
+        <article class="bg-gray-50 p-4 rounded-lg teacher-card" data-teacher-id="3" data-subject="english" data-level="middle">
+          <img alt="صورة الأستاذة فركوس " class="w-full h-48 object-cover rounded-md" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/518374085_122221605068278308_2566152190259308458_n.jpg?stp=c0.0.867.867a_dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeFrJZLyhzPuP_NNmQ83RAZfpooM3_TjkMqmigzf9OOQyhcHXtkUKjbU3muDSwxKxR3WB1LK1j4-FnykmvSs89aJ&_nc_ohc=tW-HqDii-BgQ7kNvwEV9WVx&_nc_oc=AdlPqZcnuiovhh3udxOPBMPOfCc6jwqMOp3mlWXSNWnoIlbNa0Y_fF1pBj4virOljaM&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=6rD6gp_E42qrayXF5OYX7A&oh=00_AfRtSrHRr2EuybbCngSdKXbA1a2JAu2xcs6bOsqRWxFfrQ&oe=6887FFD2"/>
+          <div class="flex items-center justify-center mt-3 mb-2 text-[12px]">
+            <a href="https://www.facebook.com/profile.php?id=61558349263397&mibextid=rS40aB7S9Ucbxw6v" target="_blank" class="social-icon text-blue-700"><i class="fab fa-facebook-f"></i></a>
+          </div>
+          <h3 class="text-sm font-semibold text-center">
+             الأستاذة فركروس
+          </h3>
+          <p class="text-xs text-[#E6D88B] font-semibold text-center mb-2">أستاذة إنجليزية</p>
+          <p class="text-[10px] leading-[1.4] text-gray-600 text-center">
+            أستاذة لغة إنجليزية في الطور المتوسط ، خريجة المدرسة العليا للأساتذة آسيا جبار قسنطينة.
+          </p>
+          <button class="follow-button w-full mt-3 py-1 bg-[#E6D88B] text-[#0B0D23] rounded-md text-xs font-semibold" data-teacher-id="3">
+            متابعة
+          </button>
+        </article>
       </div>
     </section>
     
@@ -263,23 +280,6 @@
             متابعة
           </button>
         </article> 
-           <!-- Teacher 9 -->
-        <article class="bg-gray-50 p-4 rounded-lg teacher-card" data-teacher-id="9" data-subject="english" data-level="high">
-          <img alt="صورة الأستاذة فركوس " class="w-full h-48 object-cover rounded-md" src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/518374085_122221605068278308_2566152190259308458_n.jpg?stp=c0.0.867.867a_dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeFrJZLyhzPuP_NNmQ83RAZfpooM3_TjkMqmigzf9OOQyhcHXtkUKjbU3muDSwxKxR3WB1LK1j4-FnykmvSs89aJ&_nc_ohc=tW-HqDii-BgQ7kNvwEV9WVx&_nc_oc=AdlPqZcnuiovhh3udxOPBMPOfCc6jwqMOp3mlWXSNWnoIlbNa0Y_fF1pBj4virOljaM&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=6rD6gp_E42qrayXF5OYX7A&oh=00_AfRtSrHRr2EuybbCngSdKXbA1a2JAu2xcs6bOsqRWxFfrQ&oe=6887FFD2"/>
-          <div class="flex items-center justify-center mt-3 mb-2 text-[12px]">
-            <a href="https://www.facebook.com/profile.php?id=61558349263397&mibextid=rS40aB7S9Ucbxw6v" target="_blank" class="social-icon text-blue-700"><i class="fab fa-facebook-f"></i></a>
-          </div>
-          <h3 class="text-sm font-semibold text-center">
-             الأستاذة فركروس
-          </h3>
-          <p class="text-xs text-[#E6D88B] font-semibold text-center mb-2">أستاذة إنجليزية</p>
-          <p class="text-[10px] leading-[1.4] text-gray-600 text-center">
-            أستاذة لغة إنجليزية في الطور ، خريجة المدرسة العليا للأساتذة.
-          </p>
-          <button class="follow-button w-full mt-3 py-1 bg-[#E6D88B] text-[#0B0D23] rounded-md text-xs font-semibold" data-teacher-id="9">
-            متابعة
-          </button>
-        </article>
         
       </div>
     </section>
@@ -369,13 +369,13 @@ let currentUser = {
 let teachers = {
   '1': { name: 'الأستاذ بن عالية عبد الرؤوف' },
   '2': { name: 'الأستاذ بحير محمد' },
-  '3': { name: 'الأستاذ عماني إبراهيم' },
+  '3': { name: 'الأستاذة فركوس' },
   '4': { name: 'الأستاذ حمودة' },
   '5': { name: 'الأستاذ سحنون' },
   '6': { name: 'الأستاذ محمد صلاح' },
   '7': { name: 'الأستاذ بوقطوف سيف الدين' },
   '8': { name: 'الأستاذ بلغيث أيمن' },
-  '9': { name: 'الأستاذة فركوس' },
+  '9': { name: 'الأستاذ' },
   '10': { name: 'الأستاذ معمري عطا الله' }
 };
 
