@@ -295,7 +295,51 @@
     <!-- More Teachers Sections -->
    <section class="mb-12 teacher-section" data-subject="علوم الطبيعية والحياة">
   <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة علوم الطبيعية والحياة</h2>
-  
+
+      <!-- Teacher 4 -->
+  <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بحير محمد">
+    <button onclick="toggleDropdown('teacher4')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+      <div class="flex items-center">
+        <img src="https://scontent.faae2-3.fna.fbcdn.net/v/t39.30808-1/473374911_122230899680078477_4856888749802971854_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeF09cinQus9vJTyZixxedAn07doG8vUJvrTt2gby9Qm-uMOh-M92T0ajxkvrvv_3B-AlUCqhdrccDZSDJJKD0hJ&_nc_ohc=Z1Ry0dTOxnYQ7kNvwEVtVCH&_nc_oc=Adl6v8eiWeUZMb8h9Q0QIdRbB9FVc1V0jpm6DmxYh0mdhT_AG-wjdLX75vAIpUuM9hI&_nc_zt=24&_nc_ht=scontent.faae2-3.fna&_nc_gid=6t2JqDARKLZIUXFpfxXk6Q&oh=00_AfR7NsrW42WPSbEv5Q-ynNQtsnaSa4hc_t8_RrN4BBwacw&oe=688472E2" alt="الأستاذ بحير محمد" class="w-10 h-10 rounded-full mr-3">
+        <div class="text-right">
+          <h3 class="font-semibold">الأستاذ بحير محمد</h3>
+          <p class="text-xs text-gray-500">أستاذ علوم الطبيعية والحياة</p>
+        </div>
+      </div>
+      <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher4-arrow"></i>
+    </button>
+    
+    <div id="teacher4" class="dropdown-content bg-gray-50">
+      <div class="p-4 border-t border-gray-200">
+        <!-- Middle School Levels -->
+        <button class="level-button" onclick="toggleLevel('middle4')">
+          <i class="fas fa-chevron-down mr-2"></i>المتوسط
+        </button>
+        <div id="middle4" class="level-content">
+          <button class="level-button" onclick="toggleLevel('middle4-1')">السنة الأولى متوسط</button>
+          <div id="middle4-1" class="level-content">
+           
+          </div>
+          
+          <button class="level-button" onclick="toggleLevel('middle4-2')">السنة الثانية متوسط</button>
+          <div id="middle4-2" class="level-content">
+            
+          </div>
+          
+          <button class="level-button" onclick="toggleLevel('middle4-3')">السنة الثالثة متوسط</button>
+          <div id="middle4-3" class="level-content">
+            
+          </div>
+          
+          <button class="level-button" onclick="toggleLevel('middle4-4')">السنة الرابعة متوسط</button>
+          <div id="middle4-4" class="level-content">
+          
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+     
   <!-- Teacher 3 -->
   <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بوقطوف سيف الدين">
     <button onclick="toggleDropdown('teacher3')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
@@ -353,52 +397,7 @@
       </div>
     </div>
   </div>
-  
-  <!-- Teacher 4 -->
-  <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="بحير محمد">
-    <button onclick="toggleDropdown('teacher4')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
-      <div class="flex items-center">
-        <img src="https://scontent.faae2-3.fna.fbcdn.net/v/t39.30808-1/473374911_122230899680078477_4856888749802971854_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=110&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeF09cinQus9vJTyZixxedAn07doG8vUJvrTt2gby9Qm-uMOh-M92T0ajxkvrvv_3B-AlUCqhdrccDZSDJJKD0hJ&_nc_ohc=Z1Ry0dTOxnYQ7kNvwEVtVCH&_nc_oc=Adl6v8eiWeUZMb8h9Q0QIdRbB9FVc1V0jpm6DmxYh0mdhT_AG-wjdLX75vAIpUuM9hI&_nc_zt=24&_nc_ht=scontent.faae2-3.fna&_nc_gid=6t2JqDARKLZIUXFpfxXk6Q&oh=00_AfR7NsrW42WPSbEv5Q-ynNQtsnaSa4hc_t8_RrN4BBwacw&oe=688472E2" alt="الأستاذ بحير محمد" class="w-10 h-10 rounded-full mr-3">
-        <div class="text-right">
-          <h3 class="font-semibold">الأستاذ بحير محمد</h3>
-          <p class="text-xs text-gray-500">أستاذ علوم الطبيعية والحياة</p>
-        </div>
-      </div>
-      <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher4-arrow"></i>
-    </button>
-    
-    <div id="teacher4" class="dropdown-content bg-gray-50">
-      <div class="p-4 border-t border-gray-200">
-        <!-- Middle School Levels -->
-        <button class="level-button" onclick="toggleLevel('middle4')">
-          <i class="fas fa-chevron-down mr-2"></i>المتوسط
-        </button>
-        <div id="middle4" class="level-content">
-          <button class="level-button" onclick="toggleLevel('middle4-1')">السنة الأولى متوسط</button>
-          <div id="middle4-1" class="level-content">
-           
-          </div>
-          
-          <button class="level-button" onclick="toggleLevel('middle4-2')">السنة الثانية متوسط</button>
-          <div id="middle4-2" class="level-content">
-            
-          </div>
-          
-          <button class="level-button" onclick="toggleLevel('middle4-3')">السنة الثالثة متوسط</button>
-          <div id="middle4-3" class="level-content">
-            
-          </div>
-          
-          <button class="level-button" onclick="toggleLevel('middle4-4')">السنة الرابعة متوسط</button>
-          <div id="middle4-4" class="level-content">
-            <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس المعادلات التربيعية</a>
-            <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الهندسة التحليلية</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
+</section> 
     
     <!-- قسم العلوم الفيزيائية -->
     <section class="mb-12 teacher-section" data-subject="العلوم الفيزيائية">
