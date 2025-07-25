@@ -157,6 +157,7 @@
               <option value="اللغة العربية">اللغة العربية</option>
               <option value="اللغة الفرنسية">اللغة الفرنسية</option>
               <option value="اللغة الإنجليزية">اللغة الإنجليزية</option>
+              <option value="التاريخ والجغرافيا">التاريخ والجغرافيا</option>
             </select>
           </div>
         </div>
@@ -457,13 +458,55 @@
     
     <section class="mb-12 teacher-section hidden-section" data-subject="اللغة الفرنسية">
       <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة الفرنسية</h2>
+       <section class="mb-12 teacher-section" data-subject="العلوم الفيزيائية">
+      <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة العلوم الفيزيائية</h2>
+      
+      <!-- Teacher 6 -->
+      <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="أستاذة التاريخ والجغرافيا">
+        <button onclick="toggleDropdown('teacher6')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+          <div class="flex items-center">
+            <img src="https://scontent.faae2-1.fna.fbcdn.net/v/t39.30808-6/479017921_544281768697028_1126329145185362532_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=6ee11a&_nc_eui2=AeFwg3_almWoH_pC5S5cDAFfMs87ixkpkAcyzzuLGSmQB9ReiMdvirbLAbuz8oEA_9E_8hA8v_W52eQmM1MWgnu4&_nc_ohc=5kjDrV5uKYsQ7kNvwF4ng_W&_nc_oc=AdkbV6ju1c1F7-spgnVgNAOpi9z_wV54b5QofuYaks2KKMSGwMpLII6o7H_tbHMqtW4&_nc_zt=23&_nc_ht=scontent.faae2-1.fna&_nc_gid=1YtFlzSa1sbJpGkgqm-GUg&oh=00_AfRkaIBC4SPIkBHEVK3qWI2cNWNy8iMWqth0LRxg6E7r9g&oe=6889D8D1" 
+               alt="أستاذة التاريخ والجغرافيا" class="w-10 h-10 rounded-full mr-3">
+            <div class="text-right">
+              <h3 class="font-semibold">أستاذة التاريخ والجغرافيا</h3>
+              <p class="text-xs text-gray-500">أستاذة تاريخ و جغرافيا</p>
+            </div>
+          </div>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher6-arrow"></i>
+        </button>
+        
+        <div id="teacher6" class="dropdown-content bg-gray-50">
+          <div class="p-4 border-t border-gray-200">   
+            <!-- Secondary School Levels -->
+            <button class="level-button" onclick="toggleLevel('secondary6')">
+              <i class="fas fa-chevron-down mr-2"></i>الثانوي
+            </button>
+            <div id="secondary6" class="level-content">
+              <button class="level-button" onclick="toggleLevel('secondary6-1')">السنة الأولى ثانوي</button>
+              <div id="secondary6-1" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الميكانيكا الأساسية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary6-2')">السنة الثانية ثانوي</button>
+              <div id="secondary6-2" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الكهرومغناطيسية</a>
+              </div>
+              
+              <button class="level-button" onclick="toggleLevel('secondary6-3')">السنة الثالثة ثانوي</button>
+              <div id="secondary6-3" class="level-content">
+                <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس الفيزياء النووية</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
     
     <section class="mb-12 teacher-section" data-subject="اللغة الإنجليزية">
       <h2 class="text-xl font-semibold mb-6 pb-2 border-b border-[#E6D88B]">أساتذة اللغة الإنجليزية</h2>
-      <!-- Teacher 6 -->
+      <!-- Teacher 7 -->
       <div class="bg-white rounded-lg shadow-sm overflow-hidden mb-4 teacher-card" data-teacher="فركوس">
-        <button onclick="toggleDropdown('teacher6')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
+        <button onclick="toggleDropdown('teacher7')" class="w-full flex justify-between items-center p-4 hover:bg-gray-50">
           <div class="flex items-center">
             <img src="https://scontent.faae2-2.fna.fbcdn.net/v/t39.30808-1/518374085_122221605068278308_2566152190259308458_n.jpg?stp=c0.0.867.867a_dst-jpg_s200x200_tt6&_nc_cat=107&ccb=1-7&_nc_sid=2d3e12&_nc_eui2=AeFrJZLyhzPuP_NNmQ83RAZfpooM3_TjkMqmigzf9OOQyhcHXtkUKjbU3muDSwxKxR3WB1LK1j4-FnykmvSs89aJ&_nc_ohc=tW-HqDii-BgQ7kNvwEV9WVx&_nc_oc=AdlPqZcnuiovhh3udxOPBMPOfCc6jwqMOp3mlWXSNWnoIlbNa0Y_fF1pBj4virOljaM&_nc_zt=24&_nc_ht=scontent.faae2-2.fna&_nc_gid=6rD6gp_E42qrayXF5OYX7A&oh=00_AfRtSrHRr2EuybbCngSdKXbA1a2JAu2xcs6bOsqRWxFfrQ&oe=6887FFD2" 
                alt="الأستاذ فركوس" class="w-10 h-10 rounded-full mr-3">
@@ -472,31 +515,31 @@
               <p class="text-xs text-gray-500">أستاذة إنجليزية</p>
             </div>
           </div>
-          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher6-arrow"></i>
+          <i class="fas fa-chevron-down text-gray-400 transition-transform duration-300" id="teacher7-arrow"></i>
         </button>
         
-        <div id="teacher6" class="dropdown-content bg-gray-50">
+        <div id="teacher7" class="dropdown-content bg-gray-50">
           <div class="p-4 border-t border-gray-200">
             <!-- Middle School Levels -->
-            <button class="level-button" onclick="toggleLevel('middle6')">
+            <button class="level-button" onclick="toggleLevel('middle7')">
               <i class="fas fa-chevron-down mr-2"></i>المتوسط
             </button>
-            <div id="middle6" class="level-content">
-              <button class="level-button" onclick="toggleLevel('middle6-1')">السنة الأولى متوسط</button>
-              <div id="middle6-1" class="level-content">
+            <div id="middle7" class="level-content">
+              <button class="level-button" onclick="toggleLevel('middle7-1')">السنة الأولى متوسط</button>
+              <div id="middle7-1" class="level-content">
                 <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس أساسيات اللغة الإنجليزية</a>
               </div>
               
-              <button class="level-button" onclick="toggleLevel('middle6-2')">السنة الثانية متوسط</button>
-              <div id="middle6-2" class="level-content">
+              <button class="level-button" onclick="toggleLevel('middle7-2')">السنة الثانية متوسط</button>
+              <div id="middle7-2" class="level-content">
                 <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
               </div>
-               <button class="level-button" onclick="toggleLevel('middle6-3')">السنة الثالثة متوسط</button>
-              <div id="middle6-3" class="level-content">
+               <button class="level-button" onclick="toggleLevel('middle7-3')">السنة الثالثة متوسط</button>
+              <div id="middle7-3" class="level-content">
                 <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
               </div>
-               <button class="level-button" onclick="toggleLevel('middle6-4')">السنة الرابعة متوسط</button>
-              <div id="middle6-4" class="level-content">
+               <button class="level-button" onclick="toggleLevel('middle7-4')">السنة الرابعة متوسط</button>
+              <div id="middle7-4" class="level-content">
                 <a href="#" class="lesson-item block p-2 hover:bg-white rounded-md">درس القواعد الأساسية</a>
               </div>
             </div>
